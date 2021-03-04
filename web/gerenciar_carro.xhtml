@@ -25,7 +25,7 @@
                 <p:inputText value="#{carroBean.carro.cor}"></p:inputText>
 
                 <h:outputLabel value="Ano: "></h:outputLabel>
-                <p:inputMask mask="9999" value="#{carroBean.carro.ano}"></p:inputMask>
+                <p:calendar value="#{carroBean.carro.ano}"></p:calendar>
             </p:panelGrid>
 
             <p:dataTable value="#{carroBean.carros}" var="carro">

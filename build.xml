@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="jsf_objetos" default="default" basedir=".">
-    <description>Builds, tests, and runs the project jsf_objetos.</description>
+<project name="sistema_carros" default="default" basedir=".">
+    <description>Builds, tests, and runs the project sistema_carros.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

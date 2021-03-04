@@ -1,10 +1,12 @@
-package br.edu.ifnmg.objetos.entidade;
+package br.edu.ifnmg.carros.entidade;
+
+import java.util.Date;
 
 public class Carro {
     private String modelo;
     private String fabricante;
     private String cor;
-    private Integer ano;
+    private Date ano;
 
     //set / get modelo
     public void setModelo(String modelo) {
@@ -31,10 +33,10 @@ public class Carro {
     }
     
     //set / get ano
-    public void setAno(Integer ano) {
+    public void setAno(Date ano) {
         this.ano = ano;
     }
-    public Integer getAno() {
+    public Date getAno() {
         return ano;
     }
     

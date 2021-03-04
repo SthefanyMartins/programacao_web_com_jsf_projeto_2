@@ -1,6 +1,7 @@
-package br.edu.ifnmg.objetos.bean;
+package br.edu.ifnmg.carros.bean;
 
-import br.edu.ifnmg.objetos.entidade.Carro;
+import br.edu.ifnmg.carros.dao.CarroDAO;
+import br.edu.ifnmg.carros.entidade.Carro;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -15,6 +16,7 @@ public class CarroBean {
     
     public void adicionar(){
         carros.add(carro);
+        new CarroDAO().salvar(carro);
         carro = new Carro();
     }
 
