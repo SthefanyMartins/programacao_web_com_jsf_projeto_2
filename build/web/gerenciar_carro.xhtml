@@ -10,7 +10,8 @@
     <h:form> 
         <p:toolbar>
             <p:toolbarGroup>  
-                <p:commandButton value="Adicionar" action="#{carroBean.adicionar()}" update="@form"></p:commandButton>
+                <p:commandButton value="Salvar" action="#{carroBean.adicionar()}" update="@form"></p:commandButton>
+                <p:commandButton value="Listar" action="#{carroBean.listar()}" update="@form"></p:commandButton>
             </p:toolbarGroup>
         </p:toolbar>
         <p:fieldset legend="Objetos">
@@ -29,6 +30,9 @@
             </p:panelGrid>
 
             <p:dataTable value="#{carroBean.carros}" var="carro">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
+                </p:column>
                 <p:column headerText="Modelo: " sortBy="#{carro.modelo}">
                     <h:outputText value="#{carro.modelo}"></h:outputText>
                 </p:column>

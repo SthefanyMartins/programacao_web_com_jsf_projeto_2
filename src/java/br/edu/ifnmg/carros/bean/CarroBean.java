@@ -13,13 +13,20 @@ public class CarroBean {
     
     private Carro carro = new Carro();
     private List<Carro> carros = new ArrayList<>();
+    private CarroDAO carroDAO = new CarroDAO();
     
     public void adicionar(){
-        carros.add(carro);
-        new CarroDAO().salvar(carro);
+        carroDAO.salvar(carro);
         carro = new Carro();
     }
+    
+    public void listar(){
+        carros = carroDAO.buscar();
+    }
 
+    public void editar(Carro c){
+        carro = c;
+    }
     //get / set carro
     public Carro getCarro() {
         return carro;
