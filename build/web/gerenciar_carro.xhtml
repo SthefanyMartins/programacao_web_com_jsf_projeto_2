@@ -14,6 +14,7 @@
                 <p:commandButton value="Listar" action="#{carroBean.listar()}" update="@form"></p:commandButton>
             </p:toolbarGroup>
         </p:toolbar>
+        <p:messages autoUpdate="true" showDetail="true"></p:messages>
         <p:fieldset legend="Objetos">
             <p:panelGrid columns="2">
                 <h:outputLabel value="Modelo: "></h:outputLabel>
@@ -32,6 +33,7 @@
             <p:dataTable value="#{carroBean.carros}" var="carro">
                 <p:column>
                     <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{carroBean.deletar(carro)}" update="@form"></p:commandButton>
                 </p:column>
                 <p:column headerText="Modelo: " sortBy="#{carro.modelo}">
                     <h:outputText value="#{carro.modelo}"></h:outputText>
