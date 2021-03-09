@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CarroDAO {
-        
+public class CarroDAO implements CrudDAO<Carro>{
+    
+    @Override
     public void salvar(Carro carro) throws ErroSistema{
         try {
             Connection conexao = FabricaConexao.getConexao();
@@ -38,11 +39,12 @@ public class CarroDAO {
         }
     }
     
-    public void deletar(Integer idCarro) throws ErroSistema{
+    @Override
+    public void deletar(Carro carro) throws ErroSistema{
         try {
             Connection conexao = FabricaConexao.getConexao();
             PreparedStatement ps = conexao.prepareStatement("DELETE FROM carro WHERE id=?");
-            ps.setInt(1, idCarro);
+            ps.setInt(1, carro.getId());
             ps.execute();
         } catch (SQLException ex) {
             //Logger.getLogger(CarroDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,6 +52,7 @@ public class CarroDAO {
         }
     }
     
+    @Override
     public List<Carro> buscar() throws ErroSistema{
         try {
                 Connection conexao = FabricaConexao.getConexao();
@@ -65,6 +68,7 @@ public class CarroDAO {
                     carro.setAno(resultSet.getDate("ano"));
                     carros.add(carro);
                 }
+                FabricaConexao.fecharConexao();
                 return carros;
             } catch (SQLException ex) {
             //Logger.getLogger(CarroDAO.class.getName()).log(Level.SEVERE, null, ex);
