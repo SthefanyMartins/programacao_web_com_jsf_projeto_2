@@ -64,6 +64,7 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
                     usuarios.add(usuario);
                 }
                 FabricaConexao.fecharConexao();
+               
                 return usuarios;
             } catch (SQLException ex) {
             //Logger.getLogger(CarroDAO.class.getName()).log(Level.SEVERE, null, ex);
