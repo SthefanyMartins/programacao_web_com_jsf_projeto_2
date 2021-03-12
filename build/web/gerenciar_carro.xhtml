@@ -33,7 +33,7 @@
                     <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{carroBean.delete(carro)}" update="@form"></p:commandButton>
                 </p:column>
-                <p:column headerText="Modelo: " sortBy="#{carro.modelo}">
+                <p:column headerText="Modelo: " sortBy="#{carros.modelo}">
                     <h:outputText value="#{carro.modelo}"></h:outputText>
                 </p:column>
                 <p:column headerText="Fabricante: " sortBy="#{carro.fabricante}">

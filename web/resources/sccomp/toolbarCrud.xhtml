@@ -14,7 +14,7 @@
         <p:toolbar>
             <p:toolbarGroup>  
                 <p:commandButton value="Novo" action="#{cc.attrs.crudBean.novo()}" icon="ui-icon-document" update="@form"></p:commandButton>
-                <p:commandButton value="Salvar" action="#{cc.attrs.crudBean.salvar()}" icon="ui-icon-disk" disabled="#{usuarioBean.busca == true}" update="@form"></p:commandButton>
+                <p:commandButton value="Salvar" action="#{cc.attrs.crudBean.salvar()}" icon="ui-icon-disk" disabled="#{cc.attrs.crudBean.busca == true}" update="@form"></p:commandButton>
                 <p:commandButton value="Buscar" action="#{cc.attrs.crudBean.buscar()}" icon="ui-icon-search" update="@form"></p:commandButton>
             </p:toolbarGroup>
             <p:toolbarGroup align="right">
