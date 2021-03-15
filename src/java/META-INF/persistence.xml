@@ -10,8 +10,6 @@
     <!-- Lista de entidades -->
     <class>br.edu.ifmg.carros.entidade.Carro</class>
     <class>br.edu.ifmg.carros.entidade.Usuario</class>
-   
-
     <properties>
       <!-- Propriedades JDBC -->
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

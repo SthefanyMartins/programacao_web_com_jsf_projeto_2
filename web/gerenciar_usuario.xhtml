@@ -15,12 +15,15 @@
                 <h:outputLabel value="Login"></h:outputLabel>
                 <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>
                 <h:outputLabel value="Senha"></h:outputLabel>
-                <p:password value="#{usuarioBean.entidade.senha}" redisplay="true"></p:password>
+                <p:password value="#{usuarioBean.entidade.senha}" match="confirmacao" label="Password 1" required="true" validatorMessage="As senhas são diferentes"></p:password>
+                <h:outputLabel value="Confirmar senha"></h:outputLabel>
+                <p:password id="confirmacao" value="#{usuarioBean.entidade.senha}" label="Password 2" required="true"></p:password>
             </p:panelGrid>
             <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca== true}" >
                 <p:column>
                     <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Carro" update="@form"></p:commandButton>
                 </p:column>
                 <p:column headerText="Login">
                     <h:outputText value="#{u.login}"></h:outputText>

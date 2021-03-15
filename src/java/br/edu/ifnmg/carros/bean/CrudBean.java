@@ -10,9 +10,15 @@ import javax.faces.context.FacesContext;
 
 public abstract class CrudBean<E, D extends CrudDAO> {
     
-    private String estadoTela = "buscar"; // insere, edita, busca
+    private String estadoTela; // insere, edita, busca
     private E entidade;
     private List<E> entidades;
+    
+    public CrudBean(){
+        estadoTela = "buscar";
+        buscar();
+    }
+    
     
     public void novo(){
         entidade = criarNovaEntidade();
@@ -39,8 +45,8 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     public void delete(E entidade){
         try {
             getDao().deletar(entidade);
-            entidades.remove(entidade);
             adicionarMensagem("Deletado com sucesso!", FacesMessage.SEVERITY_INFO);
+            mudarParaBusca();
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
@@ -109,5 +115,6 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     }
     public void mudarParaBusca(){
         estadoTela = "buscar";
+        buscar();
     }
 }

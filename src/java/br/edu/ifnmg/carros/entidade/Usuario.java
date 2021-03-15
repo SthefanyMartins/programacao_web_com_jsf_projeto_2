@@ -7,15 +7,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String login;
     private String senha;
+    
+    @ManyToMany
+    @JoinTable(name = "usuario_carro",
+            joinColumns = {@JoinColumn(name = "usuario_id")},
+            inverseJoinColumns = {@JoinColumn(name = "carro_id")})
+    private List<Carro> carros = new ArrayList<Carro>();
     
     //getters e setters
     public Integer getId() {
@@ -38,6 +50,15 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public List<Carro> getCarros() {
+        return carros;
+    }
+    public void setCarros(List<Carro> carros) {
+        this.carros = carros;
+    }
+    
+    
     
     //equals e hashcode
     @Override
