@@ -9,10 +9,12 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "usuario")
@@ -28,6 +30,9 @@ public class Usuario implements Serializable{
             joinColumns = {@JoinColumn(name = "usuario_id")},
             inverseJoinColumns = {@JoinColumn(name = "carro_id")})
     private List<Carro> carros = new ArrayList<Carro>();
+    
+    @OneToMany(mappedBy = "usuario")
+    Set<UsuarioCarro> usuarioCarros;
     
     //getters e setters
     public Integer getId() {

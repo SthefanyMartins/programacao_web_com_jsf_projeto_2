@@ -16,7 +16,7 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
          EntityManager entityManager = new FabricaConexao().getConnection();
         try{    
             entityManager.getTransaction().begin();
-            if(entidade.getId() == null){
+            if(entidade.getId()== null){
                 entityManager.persist(entidade);
             }else{
                 entityManager.merge(entidade);
@@ -24,7 +24,7 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
             entityManager.getTransaction().commit();
         }catch(Exception e){
             entityManager.getTransaction().rollback();
-            throw new ErroSistema("Erro ao deletar o usuário!", e);
+            throw new ErroSistema("Erro ao salvar usuário!", e);
         }finally{
             entityManager.close();
         }
@@ -61,6 +61,14 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
         }
         return usuarios;
     }
+
+    @Override
+    public List<Usuario> buscar(Usuario entidade) throws ErroSistema {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    
     
     
     

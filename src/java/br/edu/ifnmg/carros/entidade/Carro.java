@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,6 +30,9 @@ public class Carro {
     
     @ManyToMany(mappedBy = "carros", cascade = CascadeType.ALL)
     private List<Usuario> usuarios = new ArrayList<Usuario>();
+    
+    @OneToMany(mappedBy = "carro")
+    Set<UsuarioCarro> usuarioCarros;
 
     //set / get id
     public void setId(Integer id) {    

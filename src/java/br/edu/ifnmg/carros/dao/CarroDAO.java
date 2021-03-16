@@ -59,4 +59,9 @@ public class CarroDAO implements CrudDAO<Carro>{
         }
         return carros;
     }
+
+    @Override
+    public List<Carro> buscar(Carro entidade) throws ErroSistema {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
