@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.lang.Exception;
+import java.util.Map;
 
 public abstract class CrudBean<E, D extends CrudDAO> {
     
@@ -18,8 +20,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
         estadoTela = "buscar";
         buscar();
     }
-    
-    
+        
     public void novo(){
         entidade = criarNovaEntidade();
         mudarParaInseri();
@@ -68,6 +69,21 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+    }
+    
+    public void buscarEntidades(Integer id){
+        if(id == null){
+            adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
+        }
+        try {
+           entidades = getDao().buscar(id);
+           if(entidades == null || entidades.size() < 1){
+                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
+            }
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro){

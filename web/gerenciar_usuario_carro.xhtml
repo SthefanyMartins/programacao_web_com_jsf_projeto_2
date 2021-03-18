@@ -4,36 +4,42 @@
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template.xhtml"
-             xmlns:p="http://primefaces.org/ui">
-
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:metadata>
+        <f:viewParam name="id" value="#{usuarioCarroBean.id}"></f:viewParam>
+        <f:event type="preRenderView" listener="#{usuarioCarroBean.init()}"></f:event>
+    </f:metadata>
+    
     <h:form>
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
         <p:fieldset legend="Gerenciar Carros do Usuário">
             <p:fieldset legend="Usuário">
-                <p:panelGrid columns="2" rendered="">
+                <p:panelGrid columns="2">
                     <h:outputLabel value="Login"></h:outputLabel>
-                    <h:outputLabel value=""></h:outputLabel>
+                    <h:outputLabel value="#{usuarioCarroBean.entidades.usuario.login}"></h:outputLabel>
                     <h:outputLabel value="Senha"></h:outputLabel>
-                    <h:outputLabel value=""></h:outputLabel>
+                    <h:outputLabel value="#{usuarioCarroBean.entidades.usuario.senha}"></h:outputLabel>
                 </p:panelGrid>
             </p:fieldset>
             <p:fieldset legend="Adicionar Carro">
                 <h:outputLabel value="Selecione um carro: "></h:outputLabel>
             </p:fieldset>
             <p:fieldset legend="Carros do Usuário">
-                <p:dataTable value="" var="u">
-                    <p:column headerText="Modelo: " sortBy="">
-                        <h:outputText value=""></h:outputText>
+                <p:dataTable value="#{usuarioCarroBean.entidades}" var="c">
+                    <p:column headerText="Modelo: " sortBy="#{c.carro.modelo}">
+                        <h:outputText value="#{c.carro.modelo}"></h:outputText>
                     </p:column>
-                    <p:column headerText="Fabricante: " sortBy="">
-                        <h:outputText value=""></h:outputText>
+                    <p:column headerText="Fabricante: " sortBy="#{c.carro.fabricante}">
+                        <h:outputText value="#{c.carro.fabricante}"></h:outputText>
                     </p:column>
-                    <p:column headerText="Cor: " sortBy="">
-                        <h:outputText value=""></h:outputText>
+                    <p:column headerText="Cor: " sortBy="#{c.carro.cor}">
+                        <h:outputText value="#{c.carro.cor}"></h:outputText>
                     </p:column>
-                    <p:column headerText="Ano: " sortBy="">
-                        <h:outputText value="">
-                            <!--<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>-->
+                    <p:column headerText="Ano: " sortBy="#{c.carro.ano}">
+                        <h:outputText value="#{c.carro.ano}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                         </h:outputText>
                     </p:column>
                 </p:dataTable>

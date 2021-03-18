@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "usuario_carro")
 public class UsuarioCarro {
     
     @EmbeddedId

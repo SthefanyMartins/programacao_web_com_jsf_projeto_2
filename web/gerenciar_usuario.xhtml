@@ -5,7 +5,8 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template.xhtml"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp">
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:form>
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
@@ -23,7 +24,9 @@
                 <p:column>
                     <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Carro" action="/gerenciar_usuario_carro.jsf"></p:commandButton>
+                    <p:commandButton value="Carro" action="#{usuarioBean.gerenciarCarrosUrl(u)}" >
+                        <f:param name="id" value=""></f:param>
+                    </p:commandButton>
                 </p:column>
                 <p:column headerText="Login">
                     <h:outputText value="#{u.login}"></h:outputText>

@@ -29,9 +29,12 @@ public class UsuarioCarroKey implements Serializable{
     }
     
     //equals e hashcode
+
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.usuarioId);
+        hash = 83 * hash + Objects.hashCode(this.carroId);
         return hash;
     }
 
@@ -55,5 +58,6 @@ public class UsuarioCarroKey implements Serializable{
         }
         return true;
     }
+    
     
 }

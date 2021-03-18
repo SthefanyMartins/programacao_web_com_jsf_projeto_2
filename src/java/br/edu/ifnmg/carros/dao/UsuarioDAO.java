@@ -63,13 +63,9 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
     }
 
     @Override
-    public List<Usuario> buscar(Usuario entidade) throws ErroSistema {
+    public List<Usuario> buscar(Integer e) throws ErroSistema {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
-    
-    
-    
     
 }

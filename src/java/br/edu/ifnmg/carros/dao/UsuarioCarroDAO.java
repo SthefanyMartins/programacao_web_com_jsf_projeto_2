@@ -48,50 +48,38 @@ public class UsuarioCarroDAO implements CrudDAO<UsuarioCarro>{
 
     @Override
     public List<UsuarioCarro> buscar() throws ErroSistema {
-        EntityManager entityManager = new FabricaConexao().getConnection();
+//        EntityManager entityManager = new FabricaConexao().getConnection();
         List<UsuarioCarro> usuariosCarros = null;
-        try{
-            String selectAll = "select uc from UsuarioCarro uc";
-            TypedQuery<UsuarioCarro> tipedQuery = entityManager.createQuery(selectAll, UsuarioCarro.class);
-            usuariosCarros = tipedQuery.getResultList();
-        }catch(Exception e){
-            throw new ErroSistema("Erro ao buscar os usuarios!", e);
-        }finally{
-            entityManager.close();
-        }
+//        try{
+//            String selectAll = "select uc from UsuarioCarro uc";
+//            TypedQuery<UsuarioCarro> tipedQuery = entityManager.createQuery(selectAll, UsuarioCarro.class);
+//            usuariosCarros = tipedQuery.getResultList();
+//        }catch(Exception e){
+//            throw new ErroSistema("Erro ao buscar os usuarios!", e);
+//        }finally{
+//            entityManager.close();
+//        }
         return usuariosCarros;
     }
 
+
     @Override
-    public List<UsuarioCarro> buscar(UsuarioCarro entidade) throws ErroSistema {
+    public List<UsuarioCarro> buscar(Integer id) throws ErroSistema {
+        System.out.println("ID = " + id);
         EntityManager entityManager = new FabricaConexao().getConnection();
-        Usuario usuario;
         List<UsuarioCarro> usuariosCarros = new ArrayList<UsuarioCarro>();
         try{
-            String select = "SELECT c FROM Carro c INNER JOIN UsuarioCarro uc ON (c.id = uc.carro_id) WHERE uc.usuario_id = :idUsuario";
-            TypedQuery<UsuarioCarro> tipedQuery = entityManager.createQuery(select, UsuarioCarro.class).setParameter("idUsuario", entidade.getId().getUsuarioId());
+            String select = "select uc from UsuarioCarro uc JOIN uc.carro where uc.usuario = 3";
+            TypedQuery<UsuarioCarro> tipedQuery = entityManager.createQuery(select, UsuarioCarro.class);
             usuariosCarros = tipedQuery.getResultList();
-            usuario = buscarUsuario(entidade);
-        }catch(Exception e){
-            throw new ErroSistema("Erro ao buscar os carros do usuario!", e);
-        }finally{
-            entityManager.close();
-        }
-        return usuariosCarros;
-    }
-    
-    public Usuario buscarUsuario(UsuarioCarro usuarioCarro) throws ErroSistema{
-        EntityManager entityManager = new FabricaConexao().getConnection();
-        Usuario usuario = new Usuario();
-        try{
-            String select = "select u from Usuario u where id = :idUsuario";
-            usuario = entityManager.createQuery(select, Usuario.class).setParameter("idUsuario", usuarioCarro.getId().getUsuarioId()).getSingleResult();
+            usuariosCarros.forEach(uc -> System.out.println(uc.getCarro().getModelo() + ", " + uc.getUsuario().getLogin()));
+            
         }catch(Exception ex){
             throw new ErroSistema("Erro ao buscar os carros do usuario!", ex);
         }finally{
             entityManager.close();
         }
-        return usuario;
+        return usuariosCarros;
     }
-    
+       
 }
