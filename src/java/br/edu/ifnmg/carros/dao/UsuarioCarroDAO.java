@@ -1,7 +1,5 @@
 package br.edu.ifnmg.carros.dao;
 
-import br.edu.ifnmg.carros.entidade.Carro;
-import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.entidade.UsuarioCarro;
 import br.edu.ifnmg.carros.util.FabricaConexao;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
@@ -16,11 +14,7 @@ public class UsuarioCarroDAO implements CrudDAO<UsuarioCarro>{
          EntityManager entityManager = new FabricaConexao().getConnection();
         try{    
             entityManager.getTransaction().begin();
-            if(entidade.getId() == null){
-                entityManager.persist(entidade);
-            }else{
-                entityManager.merge(entidade);
-            }
+            entityManager.persist(entidade);
             entityManager.getTransaction().commit();
         }catch(Exception e){
             entityManager.getTransaction().rollback();
@@ -69,7 +63,7 @@ public class UsuarioCarroDAO implements CrudDAO<UsuarioCarro>{
         EntityManager entityManager = new FabricaConexao().getConnection();
         List<UsuarioCarro> usuariosCarros = new ArrayList<UsuarioCarro>();
         try{
-            String select = "select uc from UsuarioCarro uc JOIN uc.carro where uc.usuario = 3";
+            String select = "select uc from UsuarioCarro uc JOIN uc.carro where uc.usuario = " + id;
             TypedQuery<UsuarioCarro> tipedQuery = entityManager.createQuery(select, UsuarioCarro.class);
             usuariosCarros = tipedQuery.getResultList();
             usuariosCarros.forEach(uc -> System.out.println(uc.getCarro().getModelo() + ", " + uc.getUsuario().getLogin()));
@@ -80,6 +74,11 @@ public class UsuarioCarroDAO implements CrudDAO<UsuarioCarro>{
             entityManager.close();
         }
         return usuariosCarros;
+    }
+
+    @Override
+    public UsuarioCarro buscarUm(Integer e) throws ErroSistema {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
        
 }

@@ -14,6 +14,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     
     private String estadoTela; // insere, edita, busca
     private E entidade;
+    private List<E> entidade1;
     private List<E> entidades;
     
     public CrudBean(){
@@ -69,6 +70,21 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+    }
+    
+    public void buscarEntidade(Integer id){
+        if(id == null){
+            adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
+        }
+        try {
+           entidade = (E) getDao().buscarUm(id);
+           if(entidade == null){
+                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
+            }
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public void buscarEntidades(Integer id){

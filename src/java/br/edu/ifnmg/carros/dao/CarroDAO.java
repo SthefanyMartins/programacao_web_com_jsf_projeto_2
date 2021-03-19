@@ -64,4 +64,21 @@ public class CarroDAO implements CrudDAO<Carro>{
     public List<Carro> buscar(Integer e) throws ErroSistema {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public Carro buscarUm(Integer id) throws ErroSistema {
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        Carro carro;
+        try{
+            entityManager.getTransaction().begin();
+            carro = entityManager.find(Carro.class, id);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            throw new ErroSistema("Erro ao buscar o carro!", e);
+        }finally{
+            entityManager.close();
+        }
+        return carro;
+    }
 }
+

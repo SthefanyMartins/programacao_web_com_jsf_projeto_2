@@ -5,16 +5,19 @@ import br.edu.ifnmg.carros.entidade.UsuarioCarro;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-
 @ManagedBean
 @ViewScoped
 public class UsuarioCarroBean extends CrudBean<UsuarioCarro, UsuarioCarroDAO>{
 
     private UsuarioCarroDAO usuarioCarroDAO;
+    private UsuarioBean usuarioBean;
+    private CarroBean carroBean;
     private String id;
     
     public void init(){
         System.out.println("ID INIT:"+this.id);
+        //usuarioBean.buscarEntidade(Integer.parseInt(id));
+        carroBean.buscar();
         buscarEntidades(Integer.parseInt(id));
     }
     
@@ -39,5 +42,5 @@ public class UsuarioCarroBean extends CrudBean<UsuarioCarro, UsuarioCarroDAO>{
     public void setId(String id) {
         this.id = id;
     }
-    
+
 }

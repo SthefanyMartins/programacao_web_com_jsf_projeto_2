@@ -2,9 +2,7 @@ package br.edu.ifnmg.carros.bean;
 
 import br.edu.ifnmg.carros.dao.UsuarioDAO;
 import br.edu.ifnmg.carros.entidade.Usuario;
-import java.awt.event.ActionEvent;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean

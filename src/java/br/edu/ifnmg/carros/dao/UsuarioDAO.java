@@ -62,10 +62,37 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
         return usuarios;
     }
 
+  
     @Override
-    public List<Usuario> buscar(Integer e) throws ErroSistema {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario buscarUm(Integer id) throws ErroSistema {
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        Usuario usuario;
+        try{
+            entityManager.getTransaction().begin();
+            usuario = entityManager.find(Usuario.class, id);
+            entityManager.getTransaction().commit();
+            System.out.println(usuario);
+        }catch(Exception e){
+            throw new ErroSistema("Erro ao buscar os usuarios!", e);
+        }finally{
+            entityManager.close();
+        }
+        return usuario;
     }
 
-    
+    @Override
+    public List<Usuario> buscar(Integer id) throws ErroSistema {
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        List<Usuario> usuarios = null;
+        try{
+            String selectAll = "select u from Usuario u";
+            TypedQuery<Usuario> tipedQuery = entityManager.createQuery(selectAll, Usuario.class);
+            usuarios = tipedQuery.getResultList();
+        }catch(Exception e){
+            throw new ErroSistema("Erro ao buscar os usuarios!", e);
+        }finally{
+            entityManager.close();
+        }
+        return usuarios;
+    }
 }
