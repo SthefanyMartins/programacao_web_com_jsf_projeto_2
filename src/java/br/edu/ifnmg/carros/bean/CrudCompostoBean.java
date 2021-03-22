@@ -1,7 +1,6 @@
 package br.edu.ifnmg.carros.bean;
 
 import br.edu.ifnmg.carros.dao.CrudEntidadeCompostaDAO;
-import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,10 +12,13 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
     private E entidade;
     private List<E> entidadeA;
     private List<E> entidades;
+    private Integer idUsuario;
+    private Integer idCarro;
     
     public void salvar(){
+        System.out.println("Valor idCarro: " + idCarro);
         try {
-            getDao().salvar(entidade);
+            getDao().salvar(idUsuario, idCarro);
             entidade = criarNovaEntidade();
             adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
         } catch (ErroSistema ex) {
@@ -37,6 +39,7 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
     }
     
     public void buscarEntidades(Integer id){
+        idUsuario = id;
         if(id == null){
             adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
         }
@@ -87,6 +90,18 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
     }
     public void setEntidadeA(List<E> entidadeA) {
         this.entidadeA = entidadeA;
+    }
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    public Integer getIdCarro() {
+        return idCarro;
+    }
+    public void setIdCarro(Integer idCarro) {
+        this.idCarro = idCarro;
     }
     
     

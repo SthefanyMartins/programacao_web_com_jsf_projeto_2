@@ -25,32 +25,17 @@
                     </p:column>
                 </p:dataTable>
             </p:fieldset>
+            
             <p:fieldset legend="Adicionar Carro">
                 <h:outputLabel value="Selecione um carro: "></h:outputLabel>
-<!--                <p:selectOneMenu value="" converter="" var="">
-                    <f:selectItem itemLabel="Select One" itemValue="" />
-                </p:selectOneMenu>-->
-
-                <p:dataTable value="#{usuarioCarroBean.entidadeA}" var="c">
-                    <p:column headerText="Modelo: " sortBy="#{c.carro.modelo}">
-                        <h:outputText value="#{c.carro.modelo}"></h:outputText>
-                    </p:column>
-                    <p:column headerText="Fabricante: " sortBy="#{c.carro.fabricante}">
-                        <h:outputText value="#{c.carro.fabricante}"></h:outputText>
-                    </p:column>
-                    <p:column headerText="Cor: " sortBy="#{c.carro.cor}">
-                        <h:outputText value="#{c.carro.cor}"></h:outputText>
-                    </p:column>
-                    <p:column headerText="Ano: " sortBy="#{c.carro.ano}">
-                        <h:outputText value="#{c.carro.ano}">
-                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-                        </h:outputText>
-                    </p:column>
-                </p:dataTable>
-
-                <p:commandButton value="Adicionar" action="#{usuarioCarroBean.salvar()}"></p:commandButton>
+                <p:selectOneMenu value="#{usuarioCarroBean.idCarro}">
+                    <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
+                    <f:selectItems value="#{usuarioCarroBean.entidadeA}" var="c" itemValue="#{c.carro.id}" itemLabel="#{c.carro.modelo}, #{c.carro.cor} - #{c.carro.fabricante} - #{c.carro.ano}"></f:selectItems>
+                </p:selectOneMenu>
+                <p:commandButton value="Adicionar" action="#{usuarioCarroBean.salvar()}" update="@form"></p:commandButton>
             </p:fieldset>
             <p:fieldset legend="Carros do Usuário">
+                
                 <p:dataTable value="#{usuarioCarroBean.entidades}" var="c">
                     <p:column headerText="Modelo: " sortBy="#{c.carro.modelo}">
                         <h:outputText value="#{c.carro.modelo}"></h:outputText>

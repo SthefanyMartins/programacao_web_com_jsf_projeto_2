@@ -1,9 +1,9 @@
 package br.edu.ifnmg.carros.dao;
 
-import br.edu.ifnmg.carros.bean.CarroBean;
 import br.edu.ifnmg.carros.entidade.Carro;
 import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.entidade.UsuarioCarro;
+import br.edu.ifnmg.carros.entidade.UsuarioCarroKey;
 import br.edu.ifnmg.carros.util.FabricaConexao;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.util.ArrayList;
@@ -13,11 +13,20 @@ import javax.persistence.TypedQuery;
 
 public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
     @Override
-    public void salvar(UsuarioCarro entidade) throws ErroSistema {
+    public void salvar(Integer idUsuario, Integer idCarro) throws ErroSistema {
+        System.out.println("Valor idCarro Dao: " + idCarro);
          EntityManager entityManager = new FabricaConexao().getConnection();
+         Usuario usuario;
+         Carro carro;
+         UsuarioCarro usuarioCarro = new UsuarioCarro();
         try{    
             entityManager.getTransaction().begin();
-            entityManager.persist(entidade);
+            usuario = entityManager.find(Usuario.class, idUsuario);
+            carro = entityManager.find(Carro.class, idCarro);
+            usuarioCarro.setUsuario(usuario);
+            usuarioCarro.setCarro(carro);
+            usuarioCarro.setId(new UsuarioCarroKey(idUsuario, idCarro));
+            entityManager.persist(usuarioCarro);
             entityManager.getTransaction().commit();
         }catch(Exception e){
             entityManager.getTransaction().rollback();
@@ -25,6 +34,7 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
         }finally{
             entityManager.close();
         }
+        
     }
 
     @Override
@@ -83,7 +93,6 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
         UsuarioCarro uCarro = new UsuarioCarro();
         List<UsuarioCarro> usuariosCarros = new ArrayList<UsuarioCarro>();
         try{
-            //carros = CarroBean.getDao().buscar();
             String select = "select c from Carro c";
             TypedQuery<Carro> tipedQuery = entityManager.createQuery(select, Carro.class);
             carros = tipedQuery.getResultList();
@@ -91,6 +100,7 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
             for(Carro carro : carros){
                 uCarro.setCarro(carro);
                 usuariosCarros.add(uCarro);
+                uCarro = new UsuarioCarro();
             }
         }catch(Exception ex){
             throw new ErroSistema("Erro ao buscar os carros do usuario!", ex);

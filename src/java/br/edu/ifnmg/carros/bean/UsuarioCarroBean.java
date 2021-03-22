@@ -15,7 +15,7 @@ public class UsuarioCarroBean extends CrudCompostoBean<UsuarioCarro, UsuarioCarr
     public void init(){
         System.out.println("ID INIT:"+this.id);
         buscarEntidades(Integer.parseInt(id));
-        buscarParaAdicionar();   
+        buscarParaAdicionar(); 
     }
     
     @Override

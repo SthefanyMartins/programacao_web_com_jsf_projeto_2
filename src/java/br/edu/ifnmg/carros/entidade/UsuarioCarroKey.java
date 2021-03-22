@@ -9,22 +9,32 @@ import javax.persistence.Embeddable;
 public class UsuarioCarroKey implements Serializable{
     
     @Column(name = "usuario_id")
-    Long usuarioId;
+    Integer usuarioId;
     @Column(name = "carro_id")
-    Long carroId;
+    Integer carroId;
+    
+    public UsuarioCarroKey(){
+        usuarioId = null;
+        carroId = null;
+    }
+    
+    public UsuarioCarroKey(Integer u, Integer c){
+        usuarioId = u;
+        carroId = c;
+    }
 
     //getters / setters 
-    public Long getUsuarioId() {
+    public Integer getUsuarioId() {
         return usuarioId;
     }
-    public void setUsuarioId(Long usuarioId) {
+    public void setUsuarioId(Integer usuarioId) {
         this.usuarioId = usuarioId;
     }
 
-    public Long getCarroId() {
+    public Integer getCarroId() {
         return carroId;
     }
-    public void setCarroId(Long carroId) {
+    public void setCarroId(Integer carroId) {
         this.carroId = carroId;
     }
     
