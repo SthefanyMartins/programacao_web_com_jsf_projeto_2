@@ -1,23 +1,23 @@
 package br.edu.ifnmg.carros.bean;
 
-import br.edu.ifnmg.carros.dao.CrudDAO;
+import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.lang.Exception;
-import java.util.Map;
+import br.edu.ifnmg.carros.dao.CrudEntidadeSimplesDAO;
 
-public abstract class CrudBean<E, D extends CrudDAO> {
+public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     
     private String estadoTela; // insere, edita, busca
     private E entidade;
+    private Usuario usuario;
     private List<E> entidade1;
     private List<E> entidades;
     
-    public CrudBean(){
+    public CrudSimplesBean(){
         estadoTela = "buscar";
         buscar();
     }
@@ -34,7 +34,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
             mudarParaBusca();
         } catch (ErroSistema ex) {
-            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
@@ -50,7 +50,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
             adicionarMensagem("Deletado com sucesso!", FacesMessage.SEVERITY_INFO);
             mudarParaBusca();
         } catch (ErroSistema ex) {
-            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
         
@@ -67,37 +67,23 @@ public abstract class CrudBean<E, D extends CrudDAO> {
                 adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
             }
         } catch (ErroSistema ex) {
-            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
     
-    public void buscarEntidade(Integer id){
-        if(id == null){
-            adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
-        }
-        try {
-           entidade = (E) getDao().buscarUm(id);
-           if(entidade == null){
-                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
-            }
-        } catch (ErroSistema ex) {
-            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
     
     public void buscarEntidades(Integer id){
         if(id == null){
             adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
         }
         try {
-           entidades = getDao().buscar(id);
+            entidades = getDao().buscar(id);
            if(entidades == null || entidades.size() < 1){
                 adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
             }
         } catch (ErroSistema ex) {
-            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

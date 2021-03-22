@@ -7,7 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
+public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
 
     private UsuarioDAO usuarioDAO;
      

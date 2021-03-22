@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class CarroBean extends CrudBean<Carro, CarroDAO>{
+public class CarroBean extends CrudSimplesBean<Carro, CarroDAO>{
 
     private CarroDAO carroDAO;
     

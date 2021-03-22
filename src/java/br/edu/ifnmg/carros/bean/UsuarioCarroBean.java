@@ -7,18 +7,15 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class UsuarioCarroBean extends CrudBean<UsuarioCarro, UsuarioCarroDAO>{
+public class UsuarioCarroBean extends CrudCompostoBean<UsuarioCarro, UsuarioCarroDAO>{
 
     private UsuarioCarroDAO usuarioCarroDAO;
-    private UsuarioBean usuarioBean;
-    private CarroBean carroBean;
     private String id;
     
     public void init(){
         System.out.println("ID INIT:"+this.id);
-        //usuarioBean.buscarEntidade(Integer.parseInt(id));
-        carroBean.buscar();
         buscarEntidades(Integer.parseInt(id));
+        buscarParaAdicionar();   
     }
     
     @Override

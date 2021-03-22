@@ -16,18 +16,38 @@
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
         <p:fieldset legend="Gerenciar Carros do Usuário">
             <p:fieldset legend="Usuário">
-                <p:panelGrid columns="2">
-                    <h:outputLabel value="Login"></h:outputLabel>
-                    <h:outputLabel value="#{usuarioCarroBean.entidades}"></h:outputLabel>
-                    <h:outputLabel value="Senha"></h:outputLabel>
-                    <h:outputLabel value="#{usuarioCarroBean.entidades}"></h:outputLabel>
-                </p:panelGrid>
+                <p:dataTable value="#{usuarioCarroBean.entidades}" var="c">
+                    <p:column headerText="Login: " sortBy="#{c.usuario.login}">
+                        <h:outputText value="#{c.usuario.login}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Senha: " sortBy="#{c.usuario.senha}">
+                        <h:outputText value="#{c.usuario.senha}"></h:outputText>
+                    </p:column>
+                </p:dataTable>
             </p:fieldset>
             <p:fieldset legend="Adicionar Carro">
                 <h:outputLabel value="Selecione um carro: "></h:outputLabel>
 <!--                <p:selectOneMenu value="" converter="" var="">
                     <f:selectItem itemLabel="Select One" itemValue="" />
                 </p:selectOneMenu>-->
+
+                <p:dataTable value="#{usuarioCarroBean.entidadeA}" var="c">
+                    <p:column headerText="Modelo: " sortBy="#{c.carro.modelo}">
+                        <h:outputText value="#{c.carro.modelo}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Fabricante: " sortBy="#{c.carro.fabricante}">
+                        <h:outputText value="#{c.carro.fabricante}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Cor: " sortBy="#{c.carro.cor}">
+                        <h:outputText value="#{c.carro.cor}"></h:outputText>
+                    </p:column>
+                    <p:column headerText="Ano: " sortBy="#{c.carro.ano}">
+                        <h:outputText value="#{c.carro.ano}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+
                 <p:commandButton value="Adicionar" action="#{usuarioCarroBean.salvar()}"></p:commandButton>
             </p:fieldset>
             <p:fieldset legend="Carros do Usuário">
