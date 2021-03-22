@@ -27,9 +27,10 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
         }
     }
     
-    public void delete(E entidade){
+    public void delete(String id){
+        idCarro = Integer.parseInt(id);
         try {
-            getDao().deletar(entidade);
+            getDao().deletar(idUsuario,idCarro);
             adicionarMensagem("Deletado com sucesso!", FacesMessage.SEVERITY_INFO);
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);

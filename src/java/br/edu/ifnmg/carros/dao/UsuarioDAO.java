@@ -50,6 +50,7 @@ public class UsuarioDAO implements CrudEntidadeSimplesDAO<Usuario>{
     public List<Usuario> buscar() throws ErroSistema {
         EntityManager entityManager = new FabricaConexao().getConnection();
         List<Usuario> usuarios = null;
+        Usuario u = new Usuario();
         try{
             String selectAll = "select u from Usuario u";
             TypedQuery<Usuario> tipedQuery = entityManager.createQuery(selectAll, Usuario.class);
@@ -73,7 +74,7 @@ public class UsuarioDAO implements CrudEntidadeSimplesDAO<Usuario>{
             entityManager.getTransaction().commit();
             System.out.println(usuario);
         }catch(Exception e){
-            throw new ErroSistema("Erro ao buscar os usuarios!", e);
+            throw new ErroSistema("Erro ao buscar o usuario!", e);
         }finally{
             entityManager.close();
         }

@@ -12,6 +12,7 @@
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
         <p:fieldset legend="Gerenciar Usuários">
             <sc:toolbarCrud crudBean="#{usuarioBean}"/>
+            
             <p:panelGrid columns="2" rendered="#{usuarioBean.busca == false}">
                 <h:outputLabel value="Login"></h:outputLabel>
                 <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>

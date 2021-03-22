@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -25,7 +26,7 @@ public class Usuario implements Serializable{
     private String login;
     private String senha;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_carro",
             joinColumns = {@JoinColumn(name = "usuario_id")},
             inverseJoinColumns = {@JoinColumn(name = "carro_id")})
@@ -61,6 +62,13 @@ public class Usuario implements Serializable{
     }
     public void setCarros(List<Carro> carros) {
         this.carros = carros;
+    }
+    
+    public Set<UsuarioCarro> getUsuarioCarros() {
+        return usuarioCarros;
+    }
+    public void setUsuarioCarros(Set<UsuarioCarro> usuarioCarros) {
+        this.usuarioCarros = usuarioCarros;
     }
     
     

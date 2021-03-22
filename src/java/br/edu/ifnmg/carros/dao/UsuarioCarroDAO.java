@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
     @Override
     public void salvar(Integer idUsuario, Integer idCarro) throws ErroSistema {
-        System.out.println("Valor idCarro Dao: " + idCarro);
+
          EntityManager entityManager = new FabricaConexao().getConnection();
          Usuario usuario;
          Carro carro;
@@ -38,12 +38,19 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
     }
 
     @Override
-    public void deletar(UsuarioCarro entidade) throws ErroSistema {
+    public void deletar(Integer idUsuario, Integer idCarro) throws ErroSistema {
         EntityManager entityManager = new FabricaConexao().getConnection();
+        Usuario usuario;
+         Carro carro;
+         UsuarioCarro usuarioCarro = new UsuarioCarro();
         try {
-            entidade = entityManager.find(UsuarioCarro.class, entidade.getId());
             entityManager.getTransaction().begin();
-            entityManager.remove(entidade);
+            usuario = entityManager.find(Usuario.class, idUsuario);
+            carro = entityManager.find(Carro.class, idCarro);
+            usuarioCarro.setUsuario(usuario);
+            usuarioCarro.setCarro(carro);
+            usuarioCarro = entityManager.find(UsuarioCarro.class, usuarioCarro.getId());
+            entityManager.remove(usuarioCarro);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -76,7 +83,7 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
             if(usuariosCarros.size() < 1){
                 usuarioC.setUsuario(usuario);
                 usuariosCarros.add(usuarioC);
-            }
+            } 
             System.out.println("Buscar Usuario dentro de usuariocarro  "+usuariosCarros.get(0));
         }catch(Exception ex){
             throw new ErroSistema("Erro ao buscar os carros do usuario!", ex);

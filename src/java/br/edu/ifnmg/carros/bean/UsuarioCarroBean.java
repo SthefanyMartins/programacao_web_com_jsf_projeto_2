@@ -13,9 +13,11 @@ public class UsuarioCarroBean extends CrudCompostoBean<UsuarioCarro, UsuarioCarr
     private String id;
     
     public void init(){
-        System.out.println("ID INIT:"+this.id);
-        buscarEntidades(Integer.parseInt(id));
-        buscarParaAdicionar(); 
+        setIdUsuario(Integer.parseInt(id));
+    }
+    
+    public Integer retornaIdInteiro(){
+        return Integer.parseInt(id);
     }
     
     @Override
@@ -26,7 +28,6 @@ public class UsuarioCarroBean extends CrudCompostoBean<UsuarioCarro, UsuarioCarr
         return usuarioCarroDAO;
     }
     
-
     @Override
     public UsuarioCarro criarNovaEntidade() {
         return new UsuarioCarro();

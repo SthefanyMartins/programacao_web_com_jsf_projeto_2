@@ -73,6 +73,21 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     }
     
     
+    public void buscarEntidade(Integer id){
+        if(id == null){
+            adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
+        }
+        try {
+            entidade = (E) getDao().buscarUm(id);
+           if(entidade == null){
+                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
+            }
+
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     public void buscarEntidades(Integer id){
         if(id == null){
             adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
