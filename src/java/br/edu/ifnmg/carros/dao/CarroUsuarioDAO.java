@@ -8,7 +8,7 @@ import br.edu.ifnmg.carros.util.FabricaConexao;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import javax.persistence.EntityManager;
 
-public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
+public class CarroUsuarioDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
     @Override
     public void salvar(Integer idUsuario, Integer idCarro) throws ErroSistema {
         if(existeEntidade(idUsuario, idCarro)){
@@ -27,12 +27,12 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
                entityManager.getTransaction().commit();
            }catch(Exception e){
                entityManager.getTransaction().rollback();
-               throw new ErroSistema("Erro ao salvar carro!", e);
+               throw new ErroSistema("Erro ao salvar usuário!", e);
            }finally{
                entityManager.close();
            }
         }else{
-            throw new ErroSistema("O usuário já tem esse carro!");
+            throw new ErroSistema("O carro já tem esse usuário!");
         }
     }
 
@@ -79,5 +79,5 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
         }
         return valor;
     }
-       
+    
 }

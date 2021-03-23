@@ -27,5 +27,4 @@ public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
     public String gerenciarCarrosUrl(Usuario usuario) {
         return "/gerenciar_usuario_carro.jsf?faces-redirect=true&amp;includeViewParams=true&id=" + usuario.getId();
     }
-    
 }

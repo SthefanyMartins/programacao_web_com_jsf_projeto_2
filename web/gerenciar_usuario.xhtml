@@ -24,16 +24,22 @@
             <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca== true}" >
                 <p:column>
                     <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form">
+                        <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse usuario?"/>
+                    </p:commandButton>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
                     <p:commandButton value="Carro" action="#{usuarioBean.gerenciarCarrosUrl(u)}" >
                         <f:param name="id" value=""></f:param>
                     </p:commandButton>
                 </p:column>
+                <p:column headerText="Id">
+                    <h:outputText value="#{u.id}"></h:outputText>
+                </p:column>
                 <p:column headerText="Login">
                     <h:outputText value="#{u.login}"></h:outputText>
-                </p:column>
-                <p:column headerText="Senha">
-                    <h:outputText value="#{u.senha}"></h:outputText>
                 </p:column>
             </p:dataTable>
         </p:fieldset>

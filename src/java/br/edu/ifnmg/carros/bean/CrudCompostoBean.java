@@ -39,35 +39,6 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
         
     }
     
-    public void buscarEntidades(Integer id){
-        idUsuario = id;
-        if(id == null){
-            adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
-        }
-        try {
-            entidades = getDao().buscar(id);
-           if(entidades == null || entidades.size() < 1){
-                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
-            }
-        } catch (ErroSistema ex) {
-            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
-    public void buscarParaAdicionar(){
-        try {
-            entidadeA = getDao().buscarParaAdicionar();
-           if(entidadeA == null || entidades.size() < 1){
-                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
-            }
-           System.out.println("CrudCompostoBean buscarParaAdicionar EntidadeA: " + entidadeA);
-        } catch (ErroSistema ex) {
-            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
     public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro){
         FacesMessage fm = new FacesMessage(tipoErro, mensagem, null);
         FacesContext.getCurrentInstance().addMessage(null, fm);
@@ -104,7 +75,6 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
     public void setIdCarro(Integer idCarro) {
         this.idCarro = idCarro;
     }
-    
     
     //Responsável por criar os métodos nas classes bean
     public abstract D getDao();

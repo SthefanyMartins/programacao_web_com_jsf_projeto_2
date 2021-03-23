@@ -16,29 +16,37 @@
     
     <h:form>
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
-        <p:fieldset legend="Gerenciar Carros do Usuário">
-            <p:fieldset legend="Usuário">
+        <p:fieldset legend="Gerenciar Usuários do Carro">
+            <p:fieldset legend="Carro">
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Id: "></p:outputLabel>
-                    <p:outputLabel value="#{usuarioBean.entidade.id}"></p:outputLabel>
-                    <p:outputLabel value="Login: "></p:outputLabel>
-                    <p:outputLabel value="#{usuarioBean.entidade.login}"></p:outputLabel>
+                    <p:outputLabel value=""></p:outputLabel>
+                    <p:outputLabel value="Modelo: "></p:outputLabel>
+                    <p:outputLabel value=""></p:outputLabel>
+                    <p:outputLabel value="Fabricante: "></p:outputLabel>
+                    <p:outputLabel value=""></p:outputLabel>
+                    <p:outputLabel value="Cor: "></p:outputLabel>
+                    <p:outputLabel value=""></p:outputLabel>
+                    <p:outputLabel value="ano: "></p:outputLabel>
+                    <p:outputLabel value="">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                    </p:outputLabel>
                 </p:panelGrid>
             </p:fieldset>
             
-            <p:fieldset legend="Adicionar Carro">
-                <h:outputLabel value="Selecione um carro: "></h:outputLabel>
-                <p:selectOneMenu value="#{usuarioCarroBean.idCarro}">
+            <p:fieldset legend="Adicionar usuário">
+                <h:outputLabel value="Selecione um usuário: "></h:outputLabel>
+                <p:selectOneMenu value="">
                     <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
-                    <f:selectItems value="#{carroBean.entidades}" var="c" itemValue="#{c.id}" itemLabel="#{c.modelo}, #{c.cor} - #{c.fabricante} - #{c.ano}"></f:selectItems>
+                    <f:selectItems value="" var="c" itemValue="" itemLabel=""></f:selectItems>
                 </p:selectOneMenu>
-                <p:commandButton value="Adicionar" action="#{usuarioCarroBean.salvar()}" update="@form"></p:commandButton>
+                <p:commandButton value="Adicionar" action="" update="@form"></p:commandButton>
             </p:fieldset>
-            <p:fieldset legend="Carros do Usuário">
+            <p:fieldset legend="Usuários do carro">
                 
-                <p:dataTable value="#{usuarioBean.entidade.carros}" var="c">
+                <p:dataTable value="" var="u">
                     <p:column headerText="" >
-                        <p:commandButton value="Deletar" action="#{usuarioCarroBean.delete(c.id)}" update="@form">
+                        <p:commandButton value="Deletar" action="" update="@form">
                             <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse carro do usuario?"/>
                         </p:commandButton>
                         <p:confirmDialog global="true">
@@ -46,19 +54,12 @@
                             <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
                         </p:confirmDialog>
                     </p:column>
-                    <p:column headerText="Modelo: " sortBy="#{c.modelo}">
-                        <h:outputText value="#{c.modelo}"></h:outputText>
+                    <p:column headerText="Id: " sortBy="">
+                        <h:outputText value=""></h:outputText>
                     </p:column>
-                    <p:column headerText="Fabricante: " sortBy="#{c.fabricante}">
-                        <h:outputText value="#{c.fabricante}"></h:outputText>
+                    <p:column headerText="Login: " sortBy="">
+                        <h:outputText value=""></h:outputText>
                     </p:column>
-                    <p:column headerText="Cor: " sortBy="#{c.cor}">
-                        <h:outputText value="#{c.cor}"></h:outputText>
-                    </p:column>
-                    <p:column headerText="Ano: " sortBy="#{c.ano}">
-                        <h:outputText value="#{c.ano}">
-                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
-                        </h:outputText>
                     </p:column>
                 </p:dataTable>
             </p:fieldset>

@@ -1,6 +1,5 @@
 package br.edu.ifnmg.carros.bean;
 
-import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,8 +12,6 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     
     private String estadoTela; // insere, edita, busca
     private E entidade;
-    private Usuario usuario;
-    private List<E> entidade1;
     private List<E> entidades;
     
     public CrudSimplesBean(){
@@ -52,8 +49,7 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
-        }
-        
+        } 
     }
     
     public void buscar(){
@@ -72,7 +68,6 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
         }
     }
     
-    
     public void buscarEntidade(Integer id){
         if(id == null){
             adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
@@ -85,22 +80,7 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
 
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    public void buscarEntidades(Integer id){
-        if(id == null){
-            adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
-        }
-        try {
-            entidades = getDao().buscar(id);
-           if(entidades == null || entidades.size() < 1){
-                adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
-            }
-        } catch (ErroSistema ex) {
-            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        } 
     }
     
     public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro){
@@ -121,8 +101,6 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     public void setEntidades(List<E> entidades) {
         this.entidades = entidades;
     }
-    
-    
     
     //Responsável por criar os métodos nas classes bean
     public abstract D getDao();

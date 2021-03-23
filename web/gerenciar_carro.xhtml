@@ -29,7 +29,14 @@
             <p:dataTable value="#{carroBean.entidades}" var="carro" rendered="#{carroBean.busca == true}">
                 <p:column>
                     <p:commandButton value="Editar" action="#{carroBean.editar(carro)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{carroBean.delete(carro)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{carroBean.delete(carro)}" update="@form">
+                        <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse carro?"/>
+                    </p:commandButton>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                    <p:commandButton value="Carro" action="#{carroBean.gerenciarUsuariosUrl(u)}" ></p:commandButton>
                 </p:column>
                 <p:column headerText="Modelo: " sortBy="#{carro.modelo}">
                     <h:outputText value="#{carro.modelo}"></h:outputText>

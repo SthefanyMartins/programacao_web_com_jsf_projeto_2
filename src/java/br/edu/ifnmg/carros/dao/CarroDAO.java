@@ -59,11 +59,6 @@ public class CarroDAO implements CrudEntidadeSimplesDAO<Carro>{
         }
         return carros;
     }
-
-    @Override
-    public List<Carro> buscar(Integer e) throws ErroSistema {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     @Override
     public Carro buscarUm(Integer id) throws ErroSistema {

@@ -80,20 +80,4 @@ public class UsuarioDAO implements CrudEntidadeSimplesDAO<Usuario>{
         }
         return usuario;
     }
-
-    @Override
-    public List<Usuario> buscar(Integer id) throws ErroSistema {
-        EntityManager entityManager = new FabricaConexao().getConnection();
-        List<Usuario> usuarios = null;
-        try{
-            String selectAll = "select u from Usuario u";
-            TypedQuery<Usuario> tipedQuery = entityManager.createQuery(selectAll, Usuario.class);
-            usuarios = tipedQuery.getResultList();
-        }catch(Exception e){
-            throw new ErroSistema("Erro ao buscar os usuarios!", e);
-        }finally{
-            entityManager.close();
-        }
-        return usuarios;
-    }
 }

@@ -2,6 +2,7 @@ package br.edu.ifnmg.carros.bean;
 
 import br.edu.ifnmg.carros.dao.CarroDAO;
 import br.edu.ifnmg.carros.entidade.Carro;
+import br.edu.ifnmg.carros.entidade.Usuario;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -25,4 +26,7 @@ public class CarroBean extends CrudSimplesBean<Carro, CarroDAO>{
         return new Carro();
     }
     
+    public String gerenciarUsuariosUrl(Carro carro) {
+        return "/gerenciar_carro_usuario.jsf?faces-redirect=true&amp;includeViewParams=true&id=" + carro.getId();
+    }
 }
