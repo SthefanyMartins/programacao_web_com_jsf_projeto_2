@@ -2,7 +2,6 @@ package br.edu.ifnmg.carros.bean;
 
 import br.edu.ifnmg.carros.dao.CarroDAO;
 import br.edu.ifnmg.carros.entidade.Carro;
-import br.edu.ifnmg.carros.entidade.Usuario;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
