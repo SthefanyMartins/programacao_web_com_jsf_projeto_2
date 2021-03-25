@@ -13,6 +13,7 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     private String estadoTela; // insere, edita, busca
     private E entidade;
     private List<E> entidades;
+    private String idUsuario;
     
     public CrudSimplesBean(){
         estadoTela = "buscar";
@@ -68,7 +69,10 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
         }
     }
     
-    public void buscarEntidade(Integer id){
+   
+        
+    public void buscarEntidade(){
+        Integer id = Integer.parseInt(idUsuario);
         if(id == null){
             adicionarMensagem("Não foi possível encontrar a entidade!", FacesMessage.SEVERITY_WARN);
         }
@@ -100,6 +104,12 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     }
     public void setEntidades(List<E> entidades) {
         this.entidades = entidades;
+    }
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
     //Responsável por criar os métodos nas classes bean

@@ -7,42 +7,109 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <p:tabView>
+        <p:tab title="Gerenciar usuários">
+            <h:form>
+                <p:messages autoUpdate="true" showDetail="true"></p:messages>
+                <p:fieldset legend="Gerenciar Usuários">
+                    <sc:toolbarCrud crudBean="#{usuarioBean}"/>
 
-    <h:form>
-        <p:messages autoUpdate="true" showDetail="true"></p:messages>
-        <p:fieldset legend="Gerenciar Usuários">
-            <sc:toolbarCrud crudBean="#{usuarioBean}"/>
-            
-            <p:panelGrid columns="2" rendered="#{usuarioBean.busca == false}">
-                <h:outputLabel value="Login"></h:outputLabel>
-                <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>
-                <h:outputLabel value="Senha"></h:outputLabel>
-                <p:password value="#{usuarioBean.entidade.senha}" match="confirmacao" label="Password 1" required="true" validatorMessage="As senhas são diferentes"></p:password>
-                <h:outputLabel value="Confirmar senha"></h:outputLabel>
-                <p:password id="confirmacao" value="#{usuarioBean.entidade.senha}" label="Password 2" required="true"></p:password>
-            </p:panelGrid>
-            <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca== true}" >
-                <p:column>
-                    <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
-                    <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form">
-                        <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse usuario?"/>
-                    </p:commandButton>
-                    <p:confirmDialog global="true">
-                        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-                    </p:confirmDialog>
-                    <p:commandButton value="Carro" action="#{usuarioBean.gerenciarCarrosUrl(u)}" >
-                        <f:param name="id" value=""></f:param>
-                    </p:commandButton>
-                </p:column>
-                <p:column headerText="Id">
-                    <h:outputText value="#{u.id}"></h:outputText>
-                </p:column>
-                <p:column headerText="Login">
-                    <h:outputText value="#{u.login}"></h:outputText>
-                </p:column>
-            </p:dataTable>
-        </p:fieldset>
-    </h:form>
+                    <p:panelGrid columns="2" rendered="#{usuarioBean.busca == false}">
+                        <h:outputLabel value="Login"></h:outputLabel>
+                        <p:inputText value="#{usuarioBean.entidade.login}"></p:inputText>
+                        <h:outputLabel value="Senha"></h:outputLabel>
+                        <p:password value="#{usuarioBean.entidade.senha}" match="confirmacao" label="Password 1" required="true" validatorMessage="As senhas são diferentes"></p:password>
+                        <h:outputLabel value="Confirmar senha"></h:outputLabel>
+                        <p:password id="confirmacao" value="#{usuarioBean.entidade.senha}" label="Password 2" required="true"></p:password>
+                    </p:panelGrid>
+                    <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca== true}" >
+                        <p:column>
+                            <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
+                            <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form">
+                                <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse usuario?"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                        </p:column>
+                        <p:column headerText="Id">
+                            <h:outputText value="#{u.id}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Login">
+                            <h:outputText value="#{u.login}"></h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:fieldset>
+            </h:form>
+        </p:tab>
+<!--*********************************************************************************************************************-->        
+        <p:tab title="Gerenciar carros do usuário" >
+            <h:form>
+                <p:messages autoUpdate="true" showDetail="true"></p:messages>
+                <p:fieldset legend="Gerenciar Carros do Usuário">
+                    <p:fieldset legend="Usuário">
+                        <p:panelGrid columns="3">
+                            <p:outputLabel value="Selecione um usuário: "></p:outputLabel>
+                            <p:selectOneMenu value="#{usuarioBean.idUsuario}" style="width:150px">
+                                <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
+                                <f:selectItems value="#{usuarioBean.entidades}" var="u" itemValue="#{u.id}" itemLabel="#{u.id} - #{u.login}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:commandButton value="Buscar" action="#{usuarioBean.buscarEntidade()}" update="@form"></p:commandButton>
+                        </p:panelGrid>
+                        <hr/>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Id: "></p:outputLabel>
+                            <p:outputLabel value="#{usuarioBean.entidade.id}"></p:outputLabel>
+                            <p:outputLabel value="Login: "></p:outputLabel>
+                            <p:outputLabel value="#{usuarioBean.entidade.login}"></p:outputLabel>
+                        </p:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Adicionar Carro">
+                        <p:panelGrid columns="3">
+                            <h:outputLabel value="Selecione um carro: "></h:outputLabel>
+                            <p:selectOneMenu value="#{usuarioCarroBean.idCarro}" style="width:350px">
+                                <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
+                                <f:selectItems value="#{carroBean.entidades}" var="c" itemValue="#{c.id}" itemLabel="#{c.modelo}, #{c.cor} - #{c.fabricante} - #{c.ano}"></f:selectItems>
+                            </p:selectOneMenu>
+                            <p:commandButton value="Adicionar" action="#{usuarioCarroBean.salvar()}" update="@form"></p:commandButton>
+                        </p:panelGrid>
+                        
+                    </p:fieldset>
+                    <p:fieldset legend="Carros do Usuário">
+
+                        <p:dataTable value="#{usuarioBean.entidade.carros}" var="c">
+                            <p:column headerText="" >
+                                <p:commandButton value="Deletar" action="#{usuarioCarroBean.delete(c.id)}" update="@form">
+                                    <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse carro do usuario?"/>
+                                </p:commandButton>
+                                <p:confirmDialog global="true">
+                                    <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                    <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                </p:confirmDialog>
+                            </p:column>
+                            <p:column headerText="Modelo: " sortBy="#{c.modelo}">
+                                <h:outputText value="#{c.modelo}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Fabricante: " sortBy="#{c.fabricante}">
+                                <h:outputText value="#{c.fabricante}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Cor: " sortBy="#{c.cor}">
+                                <h:outputText value="#{c.cor}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Ano: " sortBy="#{c.ano}">
+                                <h:outputText value="#{c.ano}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </p:fieldset>
+            </h:form>
+        </p:tab>
+    </p:tabView>
+    
 </ui:decorate>
 
