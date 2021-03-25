@@ -14,12 +14,30 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     private E entidade;
     private List<E> entidades;
     private String idUsuario;
+    private String idCarro;
     
     public CrudSimplesBean(){
         estadoTela = "buscar";
         buscar();
     }
-        
+    
+    public void mandaSalvarUsuarioCarro(){
+        UsuarioCarroBean usuarioCarroBean = new UsuarioCarroBean();
+        usuarioCarroBean.setIdUsuario(Integer.parseInt(idUsuario));
+        usuarioCarroBean.setIdCarro(Integer.parseInt(idCarro));
+        usuarioCarroBean.salvar();
+        buscarEntidade();
+    }
+    
+    public void mandaDeletarUsuarioCarro(String id){
+        idCarro = id;
+        UsuarioCarroBean usuarioCarroBean = new UsuarioCarroBean();
+        usuarioCarroBean.setIdUsuario(Integer.parseInt(idUsuario));
+        usuarioCarroBean.setIdCarro(Integer.parseInt(idCarro));
+        usuarioCarroBean.delete();
+        buscarEntidade();
+    }
+    
     public void novo(){
         entidade = criarNovaEntidade();
         mudarParaInseri();
@@ -78,10 +96,10 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
         }
         try {
             entidade = (E) getDao().buscarUm(id);
-           if(entidade == null){
+            if(entidade == null){
                 adicionarMensagem("Não há dados cadastrados!", FacesMessage.SEVERITY_WARN);
             }
-
+            
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -110,6 +128,12 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     }
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+    public String getIdCarro() {
+        return idCarro;
+    }
+    public void setIdCarro(String idCarro) {
+        this.idCarro = idCarro;
     }
     
     //Responsável por criar os métodos nas classes bean

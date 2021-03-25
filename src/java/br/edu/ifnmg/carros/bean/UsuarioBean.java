@@ -11,6 +11,7 @@ public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
 
     private UsuarioDAO usuarioDAO;
      
+    
     @Override
     public UsuarioDAO getDao() {
         if(usuarioDAO == null){

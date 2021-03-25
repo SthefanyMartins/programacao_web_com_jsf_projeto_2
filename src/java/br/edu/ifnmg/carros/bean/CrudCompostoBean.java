@@ -17,6 +17,7 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
     
     public void salvar(){
         System.out.println("Valor idCarro: " + idCarro);
+        System.out.println("Valor idUsuario: " + idUsuario);
         try {
             getDao().salvar(idUsuario, idCarro);
             entidade = criarNovaEntidade();
@@ -27,8 +28,7 @@ public abstract class CrudCompostoBean<E, D extends CrudEntidadeCompostaDAO> {
         }
     }
     
-    public void delete(String id){
-        idCarro = Integer.parseInt(id);
+    public void delete(){
         try {
             getDao().deletar(idUsuario,idCarro);
             adicionarMensagem("Deletado com sucesso!", FacesMessage.SEVERITY_INFO);

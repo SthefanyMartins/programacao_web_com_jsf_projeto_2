@@ -28,7 +28,7 @@ public class Carro {
     @Temporal(TemporalType.DATE)
     private Date ano;
     
-    @ManyToMany(mappedBy = "carros", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "carros")
     private List<Usuario> usuarios = new ArrayList<Usuario>();
     
     @OneToMany(mappedBy = "carro")
