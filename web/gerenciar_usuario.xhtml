@@ -12,6 +12,7 @@
         <p:messages autoUpdate="true" showDetail="true"></p:messages>
         <p:fieldset legend="Gerenciar Usuários">
             <sc:toolbarCrud crudBean="#{usuarioBean}"/>
+<!--******************************************TAB CADASTRO USUARIO******************************************************-->
             <p:tabView rendered="#{usuarioBean.busca == false}">
                 <p:tab title="Cadastro">
                     <p:panelGrid columns="2" >
@@ -23,42 +24,24 @@
                         <p:password id="confirmacao" value="#{usuarioBean.entidade.senha}" label="Password 2" required="false"></p:password>
                     </p:panelGrid>
                 </p:tab>
-                <p:tab title="Carros">
+<!--***********************************************TAB CARROS*********************************************************-->
+                <p:tab title="Carros" disabled="#{usuarioBean.inseri == true}">
                     <p:fieldset legend="Gerenciar Carros do Usuário">
-                        <p:fieldset legend="Usuário">
-                            <p:panelGrid columns="3">
-                                <p:outputLabel value="Selecione um usuário: "></p:outputLabel>
-                                <p:selectOneMenu value="#{usuarioBean.idUsuario}" style="width:150px">
-                                    <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
-                                    <f:selectItems value="#{usuarioBean.entidades}" var="u" itemValue="#{u.id}" itemLabel="#{u.id} - #{u.login}"></f:selectItems>
-                                </p:selectOneMenu>
-                                <p:commandButton value="Buscar" action="#{usuarioBean.buscarEntidade()}" update="@form"></p:commandButton>
-                            </p:panelGrid>
-                            <hr/>
-                            <p:panelGrid columns="2">
-                                <p:outputLabel value="Id: "></p:outputLabel>
-                                <p:outputLabel value="#{usuarioBean.entidade.id}"></p:outputLabel>
-                                <p:outputLabel value="Login: "></p:outputLabel>
-                                <p:outputLabel value="#{usuarioBean.entidade.login}"></p:outputLabel>
-                            </p:panelGrid>
-                        </p:fieldset>
-
+                    <!--***************************SELECTONEMENU ADICIONAR CARRO***********************************-->
                         <p:fieldset legend="Adicionar Carro">
-                            <p:panelGrid columns="3">
+                            <p:panelGrid columns="2">
                                 <h:outputLabel value="Selecione um carro: "></h:outputLabel>
                                 <p:selectOneMenu value="#{usuarioBean.idCarro}" style="width:350px">
                                     <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
                                     <f:selectItems value="#{carroBean.entidades}" var="c" itemValue="#{c.id}" itemLabel="#{c.modelo}, #{c.cor} - #{c.fabricante} - #{c.ano}"></f:selectItems>
                                 </p:selectOneMenu>
-                                <p:commandButton value="Adicionar" action="#{usuarioBean.mandaSalvarUsuarioCarro()}" update="@form"></p:commandButton>
                             </p:panelGrid>
-
                         </p:fieldset>
+                    <!--***************************TABELA DELETAR CARRO DO USUARIO***********************************-->
                         <p:fieldset legend="Carros do Usuário">
-
                             <p:dataTable value="#{usuarioBean.entidade.carros}" var="c">
-                                <p:column headerText="" >
-                                    <p:commandButton value="Deletar" action="#{usuarioBean.mandaDeletarUsuarioCarro(c.id)}" update="@form">
+                                <p:column headerText="Deletar" >
+                                    <p:commandButton value="Deletar" action="#{usuarioBean.pegarListaDeletar(c.id)}" update="@form">
                                         <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse carro do usuario?"/>
                                     </p:commandButton>
                                     <p:confirmDialog global="true">
@@ -85,9 +68,10 @@
                     </p:fieldset>
                 </p:tab>
             </p:tabView>
+<!--*******************************************Tabela geral de usários************************************************-->
             <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca== true}" >
                 <p:column>
-                    <p:commandButton value="Editar" action="#{usuarioBean.editar(u)}" update="@form"></p:commandButton>
+                    <p:commandButton value="Editar" action="#{usuarioBean.editar(u, u.id)}" update="@form"></p:commandButton>
                     <p:commandButton value="Deletar" action="#{usuarioBean.delete(u)}" update="@form">
                         <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse usuario?"/>
                     </p:commandButton>
@@ -95,9 +79,6 @@
                         <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                         <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
                     </p:confirmDialog>
-                </p:column>
-                <p:column headerText="Id">
-                    <h:outputText value="#{u.id}"></h:outputText>
                 </p:column>
                 <p:column headerText="Login">
                     <h:outputText value="#{u.login}"></h:outputText>

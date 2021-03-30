@@ -6,10 +6,11 @@ import br.edu.ifnmg.carros.entidade.UsuarioCarro;
 import br.edu.ifnmg.carros.entidade.UsuarioCarroKey;
 import br.edu.ifnmg.carros.util.FabricaConexao;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
-    @Override
+    @Override 
     public void salvar(Integer idUsuario, Integer idCarro) throws ErroSistema {
         if(existeEntidade(idUsuario, idCarro)){
             EntityManager entityManager = new FabricaConexao().getConnection();
@@ -56,6 +57,40 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
         }
     }
     
+    @Override
+    public void deletarPorIdUsuario(List<Usuario> u) throws ErroSistema{
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        UsuarioCarro usuarioCarro = new UsuarioCarro();
+        try {
+           for(Usuario usuario : u){
+               String delete = "Delete uc from UsuarioCarro uc where uc.id_usuario = " + usuario.getId();
+               entityManager.createQuery(delete).executeUpdate();
+           }
+           
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ErroSistema("Erro ao deletar o usuario!", e);
+        }finally{
+            entityManager.close();
+        }
+    }
+    
+    @Override
+    public void deletarPorIdCarro(List<Carro> c) throws ErroSistema{
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        UsuarioCarro usuarioCarro = new UsuarioCarro();
+        try {
+           String delete = "Delete uc from UsuarioCarro uc where id_carro = " ;
+           entityManager.createQuery(delete);
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw new ErroSistema("Erro ao deletar o usuario!", e);
+        }finally{
+            entityManager.close();
+        }
+    }
+
+    
     public boolean existeEntidade(Integer idUsuario, Integer idCarro) throws ErroSistema{
         EntityManager entityManager = new FabricaConexao().getConnection();
         UsuarioCarro usuarioCarro = null;
@@ -79,5 +114,13 @@ public class UsuarioCarroDAO implements CrudEntidadeCompostaDAO<UsuarioCarro>{
         }
         return valor;
     }
+
+    
+    
+
+    
+
+    
+ 
        
 }

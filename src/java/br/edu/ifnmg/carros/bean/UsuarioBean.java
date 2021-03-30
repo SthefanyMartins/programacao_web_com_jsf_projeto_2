@@ -10,10 +10,10 @@ import javax.faces.bean.ViewScoped;
 public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
 
     private UsuarioDAO usuarioDAO;
-     
     
     @Override
     public UsuarioDAO getDao() {
+        mandarValorEntidade();
         if(usuarioDAO == null){
             usuarioDAO = new UsuarioDAO();
         }
@@ -24,10 +24,9 @@ public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
     public Usuario criarNovaEntidade() {
         return new Usuario();
     }
-    
-    public String gerenciarCarrosUrl(Usuario usuario) {
-        return "/gerenciar_usuario_carro.jsf?faces-redirect=true&amp;includeViewParams=true&id=" + usuario.getId();
- 
+        
+    public void mandarValorEntidade(){
+        setValorEntidade("usuario");
     }
     
 }

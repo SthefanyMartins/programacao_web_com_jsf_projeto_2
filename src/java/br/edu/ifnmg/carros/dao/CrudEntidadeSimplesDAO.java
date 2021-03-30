@@ -10,4 +10,6 @@ public interface CrudEntidadeSimplesDAO<E> extends Serializable{ //E representa 
     public void deletar(E entidade) throws ErroSistema;
     public List<E> buscar() throws ErroSistema;
     public E buscarUm(Integer e) throws ErroSistema;
+    public void salvarCarros(Integer idUsuario, Integer idCarro) throws ErroSistema;
+    public void deletarCarros(Integer idUsuario, Integer idCarro) throws ErroSistema;
 }

@@ -17,15 +17,12 @@ public class CarroBean extends CrudSimplesBean<Carro, CarroDAO>{
         if(carroDAO == null){
             carroDAO = new CarroDAO();
         }
+        setValorEntidade("carro");
         return carroDAO;
     }
 
     @Override
     public Carro criarNovaEntidade() {
         return new Carro();
-    }
-    
-    public String gerenciarUsuariosUrl(Carro carro) {
-        return "/gerenciar_carro_usuario.jsf?faces-redirect=true&amp;includeViewParams=true&id=" + carro.getId();
     }
 }

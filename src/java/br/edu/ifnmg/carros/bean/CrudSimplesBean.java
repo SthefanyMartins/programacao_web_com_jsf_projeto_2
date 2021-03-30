@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import br.edu.ifnmg.carros.dao.CrudEntidadeSimplesDAO;
+import java.util.ArrayList;
 
 public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     
@@ -15,32 +16,30 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     private List<E> entidades;
     private String idUsuario;
     private String idCarro;
+    private String valorEntidade;
+    private List<Integer> listaDeletar = new ArrayList<Integer>();
     
     public CrudSimplesBean(){
         estadoTela = "buscar";
         buscar();
     }
     
-    public void mandaSalvarUsuarioCarro(){
-        UsuarioCarroBean usuarioCarroBean = new UsuarioCarroBean();
-        usuarioCarroBean.setIdUsuario(Integer.parseInt(idUsuario));
-        usuarioCarroBean.setIdCarro(Integer.parseInt(idCarro));
-        usuarioCarroBean.salvar();
-        buscarEntidade();
-    }
-    
-    public void mandaDeletarUsuarioCarro(String id){
-        idCarro = id;
-        UsuarioCarroBean usuarioCarroBean = new UsuarioCarroBean();
-        usuarioCarroBean.setIdUsuario(Integer.parseInt(idUsuario));
-        usuarioCarroBean.setIdCarro(Integer.parseInt(idCarro));
-        usuarioCarroBean.delete();
-        buscarEntidade();
-    }
-    
     public void novo(){
         entidade = criarNovaEntidade();
         mudarParaInseri();
+    }
+    
+    public void botaoSalvar(){ 
+        salvar();
+        if(valorEntidade == "usuario"){
+            salvarCarro();
+            deleteCarro("usuario");
+        }
+        buscar();
+    }
+    
+    public void pegarListaDeletar(String id){
+        listaDeletar.add(Integer.parseInt(id));
     }
     
     public void salvar(){
@@ -55,8 +54,24 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
         }
     }
     
-    public void editar(E entidade){
+    public void salvarCarro(){
+        try {
+            Integer carro = Integer.parseInt(idCarro);
+            if(carro > 0){
+                getDao().salvarCarros(Integer.parseInt(idUsuario), carro);
+            }
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
+            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+    
+    public void editar(E entidade, String id){
         this.entidade = entidade;
+        if(valorEntidade == "usuario"){
+            idUsuario = id;
+        }
+        System.out.println("Editar idUsuario: " + idUsuario);
         mudarParaEdita();
     }
     
@@ -69,6 +84,21 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
             Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         } 
+    }
+    
+    public void deleteCarro(String a){
+        for(Integer item : listaDeletar){
+            try {
+                if(a == "carro"){
+                    getDao().deletarCarros(item, Integer.parseInt(idCarro));
+                }else{
+                    getDao().deletarCarros(Integer.parseInt(idUsuario), item);
+                }
+            } catch (ErroSistema ex) {
+                Logger.getLogger(CrudSimplesBean.class.getName()).log(Level.SEVERE, null, ex);
+                adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+            }
+        }
     }
     
     public void buscar(){
@@ -134,6 +164,18 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     }
     public void setIdCarro(String idCarro) {
         this.idCarro = idCarro;
+    }
+    public String getValorEntidade() {
+        return valorEntidade;
+    }
+    public void setValorEntidade(String valorEntidade) {
+        this.valorEntidade = valorEntidade;
+    }
+    public List<Integer> getListaDeletar() {
+        return listaDeletar;
+    }
+    public void setListaDeletar(List<Integer> listaDeletar) {
+        this.listaDeletar = listaDeletar;
     }
     
     //Responsável por criar os métodos nas classes bean
