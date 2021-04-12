@@ -13,7 +13,7 @@ public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
     
     @Override
     public UsuarioDAO getDao() {
-        mandarValorEntidade();
+        setValorEntidade("usuario");
         if(usuarioDAO == null){
             usuarioDAO = new UsuarioDAO();
         }
@@ -23,10 +23,6 @@ public class UsuarioBean extends CrudSimplesBean<Usuario, UsuarioDAO>{
     @Override
     public Usuario criarNovaEntidade() {
         return new Usuario();
-    }
-        
-    public void mandarValorEntidade(){
-        setValorEntidade("usuario");
     }
     
 }

@@ -14,6 +14,7 @@ public class CarroBean extends CrudSimplesBean<Carro, CarroDAO>{
     
     @Override
     public CarroDAO getDao() {
+        setValorEntidade("carro");
         if(carroDAO == null){
             carroDAO = new CarroDAO();
         }

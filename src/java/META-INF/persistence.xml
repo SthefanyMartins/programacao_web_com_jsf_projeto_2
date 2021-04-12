@@ -11,6 +11,7 @@
     <class>br.edu.ifmg.carros.entidade.Carro</class>
     <class>br.edu.ifmg.carros.entidade.Usuario</class>
     <class>br.edu.ifmg.carros.entidade.UsuarioCarro</class>
+    <class>br.edu.ifmg.carros.entidade.Telefone</class>
 
     <properties>
       <!-- Propriedades JDBC -->

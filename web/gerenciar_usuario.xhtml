@@ -13,7 +13,7 @@
         <p:fieldset legend="Gerenciar Usuários">
             <sc:toolbarCrud crudBean="#{usuarioBean}"/>
 <!--******************************************TAB CADASTRO USUARIO******************************************************-->
-            <p:tabView rendered="#{usuarioBean.busca == false}">
+<p:tabView rendered="#{usuarioBean.busca == false}">
                 <p:tab title="Cadastro">
                     <p:panelGrid columns="2" >
                         <h:outputLabel value="Login"></h:outputLabel>
@@ -24,24 +24,67 @@
                         <p:password id="confirmacao" value="#{usuarioBean.entidade.senha}" label="Password 2" required="false"></p:password>
                     </p:panelGrid>
                 </p:tab>
+<!--***********************************************TAB TELEFONES******************************************************-->
+                <p:tab title="Telefones">
+                    <p:fieldset legend="Gerenciar Telefones do Usuário">
+                        <!--***************************SELECTONEMENU ADICIONAR TELEFONE*******************************-->
+                        <p:fieldset legend="Adicionar Telefone">
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Tipo: "/>
+                                <p:selectOneMenu value="#{usuarioBean.tipo}" style="width:350px">
+                                    <f:selectItem itemValue="" itemLabel="Selecione um tipo"></f:selectItem>
+                                    <f:selectItem itemValue="Celular" itemLabel="Celular"></f:selectItem>
+                                    <f:selectItem itemValue="Telefone" itemLabel="Telefone"></f:selectItem>
+                                    <p:ajax event="change" listener="#{usuarioBean.mudarMascara()}" update="maskCelular"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Número: "/>
+                                <p:inputMask id="maskCelular" value="#{usuarioBean.numero}" mask="#{usuarioBean.mascara}" disabled="#{usuarioBean.campoMask}"/>
+                                <p:commandButton value="Adicionar" action="#{usuarioBean.adicionarTelefones()}" update="@form"></p:commandButton>
+                            </p:panelGrid>
+                        </p:fieldset>
+                        <!--***************************TABELA DELETAR TELEFONE DO USUARIO*****************************-->
+                        <p:fieldset legend="Telefones do Usuário">
+                            <p:dataTable  value="#{usuarioBean.entidade.telefones}" var="t">
+                                <p:column headerText="" >
+                                    <p:commandButton value="Editar" action="#{usuarioBean.editarTelefone(t)}" update="@form"></p:commandButton>
+                                    <p:commandButton value="Deletar" action="#{usuarioBean.deletarTelefones(t)}" update="@form">
+                                        <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse telefone do usuario?"/>
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true">
+                                        <p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                        <p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                    </p:confirmDialog>
+                                </p:column>
+                                <p:column headerText="Número: " sortBy="#{t.numero}">
+                                    <h:outputText value="#{t.numero}"></h:outputText>
+                                </p:column>
+                                <p:column headerText="Tipo: " sortBy="#{t.tipo}">
+                                    <h:outputText value="#{t.tipo}"></h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:fieldset>
+                    </p:fieldset>
+                </p:tab>
 <!--***********************************************TAB CARROS*********************************************************-->
-                <p:tab title="Carros" disabled="#{usuarioBean.inseri == true}">
+                <p:tab title="Carros">
                     <p:fieldset legend="Gerenciar Carros do Usuário">
                     <!--***************************SELECTONEMENU ADICIONAR CARRO***********************************-->
                         <p:fieldset legend="Adicionar Carro">
-                            <p:panelGrid columns="2">
+                            <p:panelGrid columns="3">
                                 <h:outputLabel value="Selecione um carro: "></h:outputLabel>
                                 <p:selectOneMenu value="#{usuarioBean.idCarro}" style="width:350px">
                                     <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
-                                    <f:selectItems value="#{carroBean.entidades}" var="c" itemValue="#{c.id}" itemLabel="#{c.modelo}, #{c.cor} - #{c.fabricante} - #{c.ano}"></f:selectItems>
+                                    <f:selectItems value="#{carroBean.entidades}" var="c" itemValue="#{c.id}" 
+                                                   itemLabel="#{c.modelo}, #{c.cor} - #{c.fabricante} - #{c.ano}"></f:selectItems>
                                 </p:selectOneMenu>
+                                <p:commandButton value="Adicionar" action="#{usuarioBean.pegarListaAdicionar()}" update="@form"></p:commandButton>
                             </p:panelGrid>
                         </p:fieldset>
                     <!--***************************TABELA DELETAR CARRO DO USUARIO***********************************-->
                         <p:fieldset legend="Carros do Usuário">
                             <p:dataTable value="#{usuarioBean.entidade.carros}" var="c">
                                 <p:column headerText="Deletar" >
-                                    <p:commandButton value="Deletar" action="#{usuarioBean.pegarListaDeletar(c.id)}" update="@form">
+                                    <p:commandButton value="Deletar" action="#{usuarioBean.pegarListaDeletar(c)}" update="@form">
                                         <p:confirm header="Deletar" message="Tem certeza que deseja excluir esse carro do usuario?"/>
                                     </p:commandButton>
                                     <p:confirmDialog global="true">

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -30,9 +30,9 @@ public class Usuario implements Serializable{
             joinColumns = {@JoinColumn(name = "usuario_id")},
             inverseJoinColumns = {@JoinColumn(name = "carro_id")})
     private List<Carro> carros = new ArrayList<Carro>();
-    
-    @OneToMany(mappedBy = "usuario")
-    Set<UsuarioCarro> usuarioCarros;
+
+    @OneToMany(mappedBy = "usuario", cascade =  CascadeType.ALL)
+    private List<Telefone> telefones = new ArrayList<Telefone>();
     
     //getters e setters
     public Integer getId() {
@@ -62,16 +62,14 @@ public class Usuario implements Serializable{
     public void setCarros(List<Carro> carros) {
         this.carros = carros;
     }
-    
-    public Set<UsuarioCarro> getUsuarioCarros() {
-        return usuarioCarros;
+
+    public List<Telefone> getTelefones() {
+        return telefones;
     }
-    public void setUsuarioCarros(Set<UsuarioCarro> usuarioCarros) {
-        this.usuarioCarros = usuarioCarros;
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
     }
-    
-    
-    
+
     //equals e hashcode
     @Override
     public int hashCode() {
@@ -81,14 +79,14 @@ public class Usuario implements Serializable{
     }
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if(obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if(getClass() != obj.getClass()) {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if(!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

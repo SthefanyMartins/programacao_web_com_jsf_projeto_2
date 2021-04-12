@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,9 +29,7 @@ public class Carro {
     
     @ManyToMany(mappedBy = "carros", fetch = FetchType.EAGER)
     private List<Usuario> usuarios = new ArrayList<Usuario>();
-    
-    @OneToMany(mappedBy = "carro")
-    Set<UsuarioCarro> usuarioCarros;
+
 
     //set / get id
     public void setId(Integer id) {    
@@ -77,9 +74,11 @@ public class Carro {
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
+
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
     
 
     @Override
