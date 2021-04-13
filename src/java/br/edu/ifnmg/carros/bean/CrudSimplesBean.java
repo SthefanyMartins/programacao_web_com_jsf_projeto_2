@@ -158,7 +158,7 @@ public abstract class CrudSimplesBean<E, D extends CrudEntidadeSimplesDAO> {
     }
     
     public void deletarTelefones(Telefone tel){
-        //getListaTelefonesDeletados().add(tel);
+        getListaTelefonesDeletados().add(tel);
         ((Usuario)getEntidade()).getTelefones().remove(tel);
     }
     
