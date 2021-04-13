@@ -21,14 +21,14 @@ public class UsuarioDAO implements CrudEntidadeSimplesDAO<Usuario>{
         EntityManager entityManager = new FabricaConexao().getConnection();
         try{    
             entityManager.getTransaction().begin();
-//            for(Telefone t : telefonesDeletados){
-//                if(t.getId() != null){
-//                    Telefone tel = entityManager.find(Telefone.class, t.getId());
-//                    tel.setUsuario(null);
-//                    entityManager.merge(tel);
-//                    entityManager.remove(tel);
-//                }
-//            }         
+            for(Telefone t : telefonesDeletados){
+                if(t.getId() != null){
+                    Telefone tel = entityManager.find(Telefone.class, t.getId());
+                    tel.setUsuario(null);
+                    entityManager.merge(tel);
+                    entityManager.remove(tel);
+                }
+            }         
             System.out.println(entidade.getTelefones().size());
             if(entidade.getId()== null){
                 entityManager.persist(entidade);
