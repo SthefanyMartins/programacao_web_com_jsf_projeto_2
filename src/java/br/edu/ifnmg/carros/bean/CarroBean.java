@@ -8,17 +8,15 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class CarroBean extends CrudSimplesBean<Carro, CarroDAO>{
+public class CarroBean extends CrudBean<Carro, CarroDAO>{
 
     private CarroDAO carroDAO;
     
     @Override
     public CarroDAO getDao() {
-        setValorEntidade("carro");
         if(carroDAO == null){
             carroDAO = new CarroDAO();
         }
-        setValorEntidade("carro");
         return carroDAO;
     }
 

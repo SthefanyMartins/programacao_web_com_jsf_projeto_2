@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class CarroDAO implements CrudEntidadeSimplesDAO<Carro>{
+public class CarroDAO implements CrudDAO<Carro>{
     
     @Override
     public void salvar(Carro carro) throws ErroSistema{

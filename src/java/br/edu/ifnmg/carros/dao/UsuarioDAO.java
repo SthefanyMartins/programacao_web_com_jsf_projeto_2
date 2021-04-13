@@ -9,7 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public class UsuarioDAO implements CrudEntidadeSimplesDAO<Usuario>{
+public class UsuarioDAO implements CrudDAO<Usuario>{
 
     @Override
     public void salvar(Usuario entidade) throws ErroSistema {

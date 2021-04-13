@@ -3,14 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/dao/UsuarioDAO.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/web/gerenciar_usuario.xhtml</file>
             <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/bean/UsuarioBean.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/entidade/Telefone.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/entidade/Usuario.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/dao/CrudEntidadeSimplesDAO.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/dao/CarroDAO.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/bean/CrudSimplesBean.java</file>
         </group>
     </open-files>
 </project-private>

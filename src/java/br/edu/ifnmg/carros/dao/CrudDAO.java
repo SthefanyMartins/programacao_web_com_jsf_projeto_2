@@ -6,7 +6,7 @@ import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.io.Serializable;
 import java.util.List;
 
-public interface CrudEntidadeSimplesDAO<E> extends Serializable{ //E representa minha entidade                  
+public interface CrudDAO<E> extends Serializable{ //E representa minha entidade                  
     public void salvar(E entidade)throws ErroSistema;
     public void salvar(E entidade, List<Telefone> telefonesDeletados)throws ErroSistema;
     public void deletar(E entidade) throws ErroSistema;
