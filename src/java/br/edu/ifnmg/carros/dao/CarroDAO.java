@@ -79,7 +79,6 @@ public class CarroDAO implements CrudDAO<Carro>{
             entityManager.getTransaction().begin();
             carro = entityManager.find(Carro.class, id);
             entityManager.getTransaction().commit();
-            //System.out.println(carro.getUsuarios());
         }catch(Exception e){
             throw new ErroSistema("Erro ao buscar o carro!", e);
         }finally{

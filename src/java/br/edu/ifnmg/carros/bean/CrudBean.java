@@ -53,7 +53,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
         } 
     }
 
-    public void buscar(){
+    public final void buscar(){
         if(isBusca() == false){
             mudarParaBusca();
             return;
