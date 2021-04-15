@@ -103,9 +103,9 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
     @Override
     public List<Telefone> retornarTelefones(Usuario u){
         EntityManager entityManager = new FabricaConexao().getConnection();
-        String jpql = "Select t from Telefone t where usuario = " + u.getId();//usar o setParameter
-        TypedQuery<Telefone> tipedQuery = entityManager.createQuery(jpql, Telefone.class);
-        List<Telefone> telefones = tipedQuery.getResultList();
+        String jpql = "Select t from Telefone t where usuario = :id";
+        TypedQuery<Telefone> typedQuery = entityManager.createQuery(jpql, Telefone.class).setParameter("id", u.getId());
+        List<Telefone> telefones = typedQuery.getResultList();
         return telefones;
     }
     

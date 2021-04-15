@@ -101,4 +101,29 @@ public class CarroDAO implements CrudDAO<Carro>{
     public List<Carro> retornarCarros(Carro u) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public List<Carro> buscarPorCategorias(String modelo, String fabricante, String cor, Integer ano) throws ErroSistema{
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        List<Carro> carros = null;
+        try{
+            String jpql = "select c from Carro c where c.modelo like :modelo and c.fabricante like :fabricante and c.cor like :cor ";
+            if(ano != null){
+                jpql += "and year(c.ano) = :ano";
+            }
+            TypedQuery<Carro> typedQuery = entityManager.createQuery(jpql, Carro.class);
+            typedQuery.setParameter("modelo", "%" + modelo + "%");
+            typedQuery.setParameter("fabricante", "%" + fabricante + "%");
+            typedQuery.setParameter("cor", "%" + cor + "%");
+            if(ano != null){
+                typedQuery.setParameter("ano", ano);
+            }
+            carros = typedQuery.getResultList();
+        }catch(Exception e){
+            throw new ErroSistema("Erro ao buscar os carros!", e);
+        }finally{
+            entityManager.close();
+        }
+        return carros;
+    }
+
 }
