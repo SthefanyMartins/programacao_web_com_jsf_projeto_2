@@ -45,6 +45,13 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
         }
     }
     
+    public void limparBusca(){
+        setBuscaModelo("");
+        setBuscaFabricante("");
+        setBuscaCor("");
+        setBuscaAno(null);
+    }
+    
     //GETTERS E SETTERS
     public String getBuscaModelo() {
         return buscaModelo;
