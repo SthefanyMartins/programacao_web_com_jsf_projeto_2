@@ -20,6 +20,8 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     private UsuarioDAO usuarioDAO;
     private String idUsuario;
     private String idCarro;
+    private String login;
+    private String guardaSenha;
     private String numero;
     private String tipo;
     private String statusTelefone;
@@ -48,10 +50,21 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     @Override
     public void salvar(){
         try {
-            getDao().salvar(getEntidade(), getListaTelefonesDeletados());
-            setEntidade(criarNovaEntidade());
-            adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
-            mudarParaBusca();
+            String testaLogin = getEntidade().getLogin().trim();
+            String testaSenha = getEntidade().getSenha().trim();
+            if("".equals(testaLogin) || testaLogin.length() == 0){
+                adicionarMensagem("Digite um login válido!", FacesMessage.SEVERITY_ERROR);
+            }else if(getEntidade().getId() == null && ("".equals(testaSenha) || testaSenha.length() == 0)){
+                adicionarMensagem("Digite uma senha válida!", FacesMessage.SEVERITY_ERROR);
+            }else{
+                if("".equals(testaSenha) || testaSenha.length() == 0){
+                    getEntidade().setSenha(getGuardaSenha());
+                }
+                getDao().salvar(getEntidade(), getListaTelefonesDeletados());
+                setEntidade(criarNovaEntidade());
+                adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
+                mudarParaBusca();
+            }
         } catch (ErroSistema ex) {
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
@@ -62,11 +75,27 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     public void editar(Usuario entidade, String id){
         setEntidade(entidade);
         setIdUsuario(id);
+        setGuardaSenha(entidade.getSenha());
         retornaCarros(entidade);
         retornaTelefones(entidade);
         mudarParaEdita();
     }
     
+    public void buscarComFiltro() throws ErroSistema{
+        try {
+            setEntidades(getDao().buscarPorLogin(getLogin()));
+            if(getEntidades() == null || getEntidades().size() < 1){
+                adicionarMensagem("Não há dados cadastrados encontrados!", FacesMessage.SEVERITY_WARN);
+            }
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CarroBean.class.getName()).log(Level.SEVERE, null, ex);
+            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
+    }
+    
+    public void limparBusca(){
+        setLogin("");
+    }
 //*************************************************CARROS DO USUARIO*************************************************
     public void retornaCarros(Usuario entidade){
        ((Usuario)getEntidade()).setCarros(getDao().retornarCarros(getEntidade()));
@@ -77,6 +106,10 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     }
     
     public void pegarListaAdicionar(){
+        if("0".equals(getIdCarro()) ){
+            adicionarMensagem("Selecione um carro!", FacesMessage.SEVERITY_ERROR);
+            return;
+        }
         CarroBean carroBean = new CarroBean();
         carroBean.buscarEntidade(getIdCarro());
         Carro carro = carroBean.getEntidade();
@@ -84,12 +117,26 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
         setIdCarro("0");
     }
     
+    
 //*************************************************TELEFONES DO USUARIO*************************************************
-    public void retornaTelefones(Usuario entidade){
-        ((Usuario)getEntidade()).setTelefones(getDao().retornarTelefones(getEntidade()));
+    public void retornaTelefones(Usuario usuario){
+        try {
+            ((Usuario)getEntidade()).setTelefones(getDao().retornarTelefones(usuario));
+        } catch (ErroSistema ex) {
+            Logger.getLogger(UsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void adicionarTelefones(){
+        System.out.println(getNumero());
+        System.out.println(getTipo());
+        if(!"Celular".equals(getTipo()) && !"Telefone".equals(getTipo())){
+            adicionarMensagem("Selecione um tipo de telefone!", FacesMessage.SEVERITY_ERROR);
+            return;
+        }else if("".equals(getNumero()) || getNumero() == null){
+            adicionarMensagem("Digite um telefone válido!", FacesMessage.SEVERITY_ERROR);
+            return;
+        }
         if("novo".equals(getStatusTelefone())){
             setTelefone(new Telefone());
         }else{//quando estiver editando um telefone
@@ -184,4 +231,17 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     public void setListaTelefonesDeletados(List<Telefone> listaTelefonesDeletados) {
         this.listaTelefonesDeletados = listaTelefonesDeletados;
     }
+    public String getLogin() {
+        return login;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    public String getGuardaSenha() {
+        return guardaSenha;
+    }
+    public void setGuardaSenha(String guardaSenha) {
+        this.guardaSenha = guardaSenha;
+    }
+    
 }

@@ -13,5 +13,5 @@ public interface CrudDAO<E> extends Serializable{ //E representa minha entidade
     public List<E> buscar() throws ErroSistema;
     public E buscarUm(Integer e) throws ErroSistema;
     public List<Carro> retornarCarros(E u);
-    public List<Telefone> retornarTelefones(E u);
+    public List<Telefone> retornarTelefones(E u) throws ErroSistema;
 }

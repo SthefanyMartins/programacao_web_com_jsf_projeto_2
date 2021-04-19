@@ -6,6 +6,8 @@ import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.util.FabricaConexao;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -101,13 +103,36 @@ public class UsuarioDAO implements CrudDAO<Usuario>{
     }
     
     @Override
-    public List<Telefone> retornarTelefones(Usuario u){
+    public List<Telefone> retornarTelefones(Usuario u) throws ErroSistema{
         EntityManager entityManager = new FabricaConexao().getConnection();
-        String jpql = "Select t from Telefone t where usuario = :id";
-        TypedQuery<Telefone> typedQuery = entityManager.createQuery(jpql, Telefone.class).setParameter("id", u.getId());
-        List<Telefone> telefones = typedQuery.getResultList();
+        List<Telefone> telefones = null;
+        try{
+            String jpql = "Select t from Telefone t where t.usuario = :id";
+            TypedQuery<Telefone> typedQuery = entityManager.createQuery(jpql, Telefone.class);
+            typedQuery.setParameter("id", u);
+            
+            telefones = typedQuery.getResultList();
+        }catch(Exception e){
+                throw new ErroSistema("Erro ao buscar os telefones!", e);
+        }finally{
+            entityManager.close();
+        }
         return telefones;
     }
     
-   
+   public List<Usuario> buscarPorLogin(String login) throws ErroSistema{
+        EntityManager entityManager = new FabricaConexao().getConnection();
+        List<Usuario> usuarios = null;
+        try{
+            String jpql = "select u from Usuario u where u.login like :login";
+            TypedQuery<Usuario> typedQuery = entityManager.createQuery(jpql, Usuario.class);
+            typedQuery.setParameter("login", "%" + login + "%");
+            usuarios = typedQuery.getResultList();
+        }catch(Exception e){
+            throw new ErroSistema("Erro ao buscar os carros!", e);
+        }finally{
+            entityManager.close();
+        }
+        return usuarios;
+    }
 }

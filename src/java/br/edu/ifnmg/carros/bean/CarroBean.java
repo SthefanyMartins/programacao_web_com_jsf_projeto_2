@@ -3,6 +3,7 @@ package br.edu.ifnmg.carros.bean;
 import br.edu.ifnmg.carros.dao.CarroDAO;
 import br.edu.ifnmg.carros.entidade.Carro;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -31,6 +32,34 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
     @Override
     public Carro criarNovaEntidade() {
         return new Carro();
+    }
+    
+    @Override
+    public void salvar(){
+        try {
+            String testaModelo = getEntidade().getModelo().trim();
+            String testaFabricante = getEntidade().getFabricante().trim();
+            String testaCor = getEntidade().getCor().trim();
+            if("".equals(testaModelo) || testaModelo.length() == 0){
+                adicionarMensagem("Digite um modelo válido!", FacesMessage.SEVERITY_ERROR);
+            }else if("".equals(testaFabricante) || testaFabricante.length() == 0){
+                adicionarMensagem("Digite um fabricante válido!", FacesMessage.SEVERITY_ERROR);
+            }else if("".equals(testaCor) || testaCor.length()== 0){
+                adicionarMensagem("Digite uma cor válida!", FacesMessage.SEVERITY_ERROR);
+            }else if(getEntidade().getAno() == null){
+                adicionarMensagem("Digite um ano válido!", FacesMessage.SEVERITY_ERROR);
+            }else if (getEntidade().getAno().compareTo(new Date()) > 0){
+                adicionarMensagem("Digite um ano válido!", FacesMessage.SEVERITY_ERROR);
+            }else{
+                getDao().salvar(getEntidade());
+                setEntidade(criarNovaEntidade());
+                adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
+                mudarParaBusca();
+            }
+        } catch (ErroSistema ex) {
+            Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
+            adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
+        }
     }
     
     public void buscarComFiltro() throws ErroSistema{

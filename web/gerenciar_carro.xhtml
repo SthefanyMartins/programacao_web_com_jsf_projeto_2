@@ -23,7 +23,7 @@
                 <p:inputText value="#{carroBean.entidade.cor}"></p:inputText>
 
                 <h:outputLabel value="Ano: "></h:outputLabel>
-                <p:calendar value="#{carroBean.entidade.ano}"></p:calendar>
+                <p:calendar value="#{carroBean.entidade.ano}" navigator="true"></p:calendar>
                 
             </p:panelGrid>
             <p:fieldset legend="Buscar" rendered="#{carroBean.busca == true}">

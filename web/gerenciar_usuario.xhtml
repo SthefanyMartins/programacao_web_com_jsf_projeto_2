@@ -72,7 +72,7 @@
                         <p:fieldset legend="Adicionar Carro">
                             <p:panelGrid columns="3">
                                 <h:outputLabel value="Selecione um carro: "></h:outputLabel>
-                                <p:selectOneMenu value="#{usuarioBean.idCarro}" style="width:350px">
+                                <p:selectOneMenu value="#{usuarioBean.idCarro}" style="width:350px" >
                                     <f:selectItem itemValue="0" itemLabel=""></f:selectItem>
                                     <f:selectItems value="#{carroBean.entidades}" var="c" itemValue="#{c.id}" 
                                                    itemLabel="#{c.modelo}, #{c.cor} - #{c.fabricante} - #{c.ano}"></f:selectItems>
@@ -112,6 +112,15 @@
                 </p:tab>
             </p:tabView>
 <!--*******************************************Tabela geral de usários************************************************-->
+             <p:fieldset legend="Buscar" rendered="#{usuarioBean.busca== true}">
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Login: "></h:outputLabel>
+                    <p:inputText value="#{usuarioBean.login}"></p:inputText>
+                </p:panelGrid>
+                 <p:commandButton value="Buscar" action="#{usuarioBean.buscarComFiltro()}" update="@form" style="margin-top:10px"></p:commandButton>
+                 <p:commandButton value="Limpar" action="#{usuarioBean.limparBusca()}" update="@form" style="margin-top:10px"></p:commandButton>
+            </p:fieldset>     
+
             <p:dataTable value="#{usuarioBean.entidades}" var="u" rendered="#{usuarioBean.busca== true}" >
                 <p:column>
                     <p:commandButton value="Editar" action="#{usuarioBean.editar(u, u.id)}" update="@form"></p:commandButton>
