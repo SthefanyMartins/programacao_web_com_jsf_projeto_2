@@ -24,11 +24,11 @@ public class CarroDAO implements CrudDAO<Carro>{
             }
             entityManager.getTransaction().commit();
         }catch(Exception e){
-            entityManager.getTransaction().rollback();
+        entityManager.getTransaction().rollback();
             throw new ErroSistema("Erro ao salvar o carro!", e);
         }finally{
             entityManager.close();
-        }
+        } 
     }
     
     @Override
@@ -61,8 +61,8 @@ public class CarroDAO implements CrudDAO<Carro>{
         List<Carro> carros = null;
         try{
             String selectAll = "select c from Carro c";
-            TypedQuery<Carro> tipedQuery = entityManager.createQuery(selectAll, Carro.class);
-            carros = tipedQuery.getResultList();
+            TypedQuery<Carro> typedQuery = entityManager.createQuery(selectAll, Carro.class);
+            carros = typedQuery.getResultList();
         }catch(Exception e){
             throw new ErroSistema("Erro ao buscar os carros!", e);
         }finally{
@@ -125,5 +125,4 @@ public class CarroDAO implements CrudDAO<Carro>{
         }
         return carros;
     }
-
 }

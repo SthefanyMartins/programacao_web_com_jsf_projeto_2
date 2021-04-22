@@ -3,6 +3,9 @@ package br.edu.ifnmg.carros.bean;
 import br.edu.ifnmg.carros.dao.CarroDAO;
 import br.edu.ifnmg.carros.entidade.Carro;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +21,7 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
     private String buscaModelo;
     private String buscaFabricante;
     private String buscaCor;
+    private String testaAno;
     private Integer buscaAno;
 
     
@@ -40,12 +44,15 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
             String testaModelo = getEntidade().getModelo().trim();
             String testaFabricante = getEntidade().getFabricante().trim();
             String testaCor = getEntidade().getCor().trim();
+            System.out.println(getEntidade().getAno());
             if("".equals(testaModelo) || testaModelo.length() == 0){
                 adicionarMensagem("Digite um modelo válido!", FacesMessage.SEVERITY_ERROR);
             }else if("".equals(testaFabricante) || testaFabricante.length() == 0){
                 adicionarMensagem("Digite um fabricante válido!", FacesMessage.SEVERITY_ERROR);
             }else if("".equals(testaCor) || testaCor.length()== 0){
                 adicionarMensagem("Digite uma cor válida!", FacesMessage.SEVERITY_ERROR);
+            }else if(validaAno()){
+                return;
             }else if(getEntidade().getAno() == null){
                 adicionarMensagem("Digite um ano válido!", FacesMessage.SEVERITY_ERROR);
             }else if (getEntidade().getAno().compareTo(new Date()) > 0){
@@ -53,6 +60,7 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
             }else{
                 getDao().salvar(getEntidade());
                 setEntidade(criarNovaEntidade());
+                setTestaAno("");
                 adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
                 mudarParaBusca();
             }
@@ -60,6 +68,30 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+    }
+    
+    public Boolean validaAno(){
+        
+        Boolean valida;
+        try {
+            SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
+            sdf1.setLenient(false);
+            Date data = sdf1.parse(testaAno);
+            getEntidade().setAno(data);
+            valida = false;
+        } catch (ParseException ex) {
+            adicionarMensagem("Digite uma data válida!", FacesMessage.SEVERITY_ERROR);
+            valida = true;
+        }
+        return valida;
+    }
+    
+    @Override
+    public void editar(Carro entidade, String id){
+        setEntidade(entidade);
+        SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
+        setTestaAno(sdf1.format(getEntidade().getAno()));
+        mudarParaEdita();
     }
     
     public void buscarComFiltro() throws ErroSistema{
@@ -108,6 +140,13 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
     }
     public void setBuscaAno(Integer buscaAno) {
         this.buscaAno = buscaAno;
+    }
+
+    public String getTestaAno() {
+        return testaAno;
+    }
+    public void setTestaAno(String testaAno) {
+        this.testaAno = testaAno;
     }
 
 }

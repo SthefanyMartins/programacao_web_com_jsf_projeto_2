@@ -23,7 +23,9 @@
                 <p:inputText value="#{carroBean.entidade.cor}"></p:inputText>
 
                 <h:outputLabel value="Ano: "></h:outputLabel>
-                <p:calendar value="#{carroBean.entidade.ano}" navigator="true"></p:calendar>
+                <p:inputMask value="#{carroBean.testaAno}" mask="99/99/9999">
+<!--                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>-->
+                </p:inputMask>
                 
             </p:panelGrid>
             <p:fieldset legend="Buscar" rendered="#{carroBean.busca == true}">

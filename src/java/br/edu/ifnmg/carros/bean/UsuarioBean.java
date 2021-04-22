@@ -106,9 +106,17 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     }
     
     public void pegarListaAdicionar(){
+        List<Carro> carros = ((Usuario)getEntidade()).getCarros();
+        Integer id = Integer.parseInt(getIdCarro());
         if("0".equals(getIdCarro()) ){
             adicionarMensagem("Selecione um carro!", FacesMessage.SEVERITY_ERROR);
             return;
+        }
+        for(Carro c : carros){
+            if(c.getId() == id){
+                adicionarMensagem("Esse usuário já tem esse carro!", FacesMessage.SEVERITY_ERROR);
+                return;
+            }
         }
         CarroBean carroBean = new CarroBean();
         carroBean.buscarEntidade(getIdCarro());

@@ -6,8 +6,6 @@ import br.edu.ifnmg.carros.entidade.Usuario;
 import br.edu.ifnmg.carros.util.FabricaConexao;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
