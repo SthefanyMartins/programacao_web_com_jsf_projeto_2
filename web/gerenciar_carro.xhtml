@@ -9,7 +9,7 @@
              xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp">
 
     <h:form> 
-        <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:messages autoUpdate="true" showDetail="false" showSummary="true"></p:messages>
         <p:fieldset legend="Gerenciar Carros">
             <sc:toolbarCrud crudBean="#{carroBean}"/>
             <p:panelGrid columns="2" rendered="#{carroBean.busca == false}">
@@ -23,10 +23,10 @@
                 <p:inputText value="#{carroBean.entidade.cor}"></p:inputText>
 
                 <h:outputLabel value="Ano: "></h:outputLabel>
-                <p:inputMask value="#{carroBean.testaAno}" mask="99/99/9999">
-<!--                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>-->
-                </p:inputMask>
-                
+                <p:calendar value="#{carroBean.testaAno}" pattern="dd/MM/yyyy" mask="true" converterMessage="Digite uma data válida!">
+                    
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:calendar>
             </p:panelGrid>
             <p:fieldset legend="Buscar" rendered="#{carroBean.busca == true}">
                 <p:panelGrid columns="8">

@@ -16,7 +16,7 @@ public abstract class CrudBean<E, D extends CrudDAO> {
     
     
     public CrudBean(){
-        estadoTela = "buscar";
+        mudarParaBusca();
         buscar();
     }
     

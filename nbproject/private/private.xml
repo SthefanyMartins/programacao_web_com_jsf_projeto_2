@@ -4,13 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/dao/UsuarioDAO.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/dao/CrudDAO.java</file>
             <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/bean/UsuarioBean.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/web/gerenciar_carro.xhtml</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/entidade/Carro.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/bean/CrudBean.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/dao/CarroDAO.java</file>
-            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/src/java/br/edu/ifnmg/carros/bean/CarroBean.java</file>
+            <file>file:/C:/Users/gabri/Documents/NetBeansProjects/sistema_carros/web/gerenciar_usuario.xhtml</file>
         </group>
     </open-files>
 </project-private>

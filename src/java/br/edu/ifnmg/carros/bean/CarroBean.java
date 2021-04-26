@@ -3,7 +3,6 @@ package br.edu.ifnmg.carros.bean;
 import br.edu.ifnmg.carros.dao.CarroDAO;
 import br.edu.ifnmg.carros.entidade.Carro;
 import br.edu.ifnmg.carros.util.exception.ErroSistema;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,10 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CarroBean extends CrudBean<Carro, CarroDAO>{
 
     private CarroDAO carroDAO;
@@ -24,6 +23,10 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
     private String testaAno;
     private Integer buscaAno;
 
+    public CarroBean(){
+        mudarParaBusca();
+        buscar();
+    }
     
     @Override
     public CarroDAO getDao() {
@@ -71,7 +74,6 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
     }
     
     public Boolean validaAno(){
-        
         Boolean valida;
         try {
             SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");

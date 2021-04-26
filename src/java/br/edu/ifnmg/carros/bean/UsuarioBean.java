@@ -32,6 +32,8 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     
     public UsuarioBean(){
         setStatusTelefone("novo");
+        mudarParaBusca();
+        buscar();
     }
     
     @Override
@@ -54,6 +56,8 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
             String testaSenha = getEntidade().getSenha().trim();
             if("".equals(testaLogin) || testaLogin.length() == 0){
                 adicionarMensagem("Digite um login válido!", FacesMessage.SEVERITY_ERROR);
+            }else if(testaLoginExiste(getEntidade().getLogin())){
+                adicionarMensagem("Esse login já existe! Digite um login válido!", FacesMessage.SEVERITY_ERROR);
             }else if(getEntidade().getId() == null && ("".equals(testaSenha) || testaSenha.length() == 0)){
                 adicionarMensagem("Digite uma senha válida!", FacesMessage.SEVERITY_ERROR);
             }else{
@@ -69,6 +73,17 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
+    }
+    
+    public Boolean testaLoginExiste(String login){
+        List<Usuario> usuarios = getEntidades();
+        Boolean valida = false;
+        for(Usuario u : usuarios){
+            if(u.getLogin().equals(login)){
+                valida = true;
+            }
+        }
+        return valida;
     }
     
     @Override
@@ -136,8 +151,6 @@ public class UsuarioBean extends CrudBean<Usuario, UsuarioDAO>{
     }
     
     public void adicionarTelefones(){
-        System.out.println(getNumero());
-        System.out.println(getTipo());
         if(!"Celular".equals(getTipo()) && !"Telefone".equals(getTipo())){
             adicionarMensagem("Selecione um tipo de telefone!", FacesMessage.SEVERITY_ERROR);
             return;
