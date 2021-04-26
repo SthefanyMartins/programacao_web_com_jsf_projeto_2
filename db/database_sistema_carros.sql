@@ -21,3 +21,11 @@ tipo varchar(20),
 usuario int,
 FOREIGN KEY (usuario) REFERENCES usuario(id)
 );
+
+Create TABLE usuario_carro(
+usuario_id int not null,
+carro_id int not null,
+PRIMARY KEY (usuario_id, carro_id),
+FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+FOREIGN KEY (carro_id) REFERENCES carro(id)
+);
