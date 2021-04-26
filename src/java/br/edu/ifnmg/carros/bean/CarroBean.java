@@ -54,8 +54,6 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
                 adicionarMensagem("Digite um fabricante válido!", FacesMessage.SEVERITY_ERROR);
             }else if("".equals(testaCor) || testaCor.length()== 0){
                 adicionarMensagem("Digite uma cor válida!", FacesMessage.SEVERITY_ERROR);
-            }else if(validaAno()){
-                return;
             }else if(getEntidade().getAno() == null){
                 adicionarMensagem("Digite um ano válido!", FacesMessage.SEVERITY_ERROR);
             }else if (getEntidade().getAno().compareTo(new Date()) > 0){
@@ -73,20 +71,7 @@ public class CarroBean extends CrudBean<Carro, CarroDAO>{
         }
     }
     
-    public Boolean validaAno(){
-        Boolean valida;
-        try {
-            SimpleDateFormat sdf1= new SimpleDateFormat("dd/MM/yyyy");
-            sdf1.setLenient(false);
-            Date data = sdf1.parse(testaAno);
-            getEntidade().setAno(data);
-            valida = false;
-        } catch (ParseException ex) {
-            adicionarMensagem("Digite uma data válida!", FacesMessage.SEVERITY_ERROR);
-            valida = true;
-        }
-        return valida;
-    }
+    
     
     @Override
     public void editar(Carro entidade, String id){
