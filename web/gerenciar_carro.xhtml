@@ -23,7 +23,7 @@
                 <p:inputText value="#{carroBean.entidade.cor}"></p:inputText>
 
                 <h:outputLabel value="Ano: "></h:outputLabel>
-                <p:calendar value="#{carroBean.entidade.ano}" pattern="dd/MM/yyyy" mask="true" converterMessage="Digite uma data válida!">
+                <p:calendar value="#{carroBean.entidade.ano}" pattern="dd/MM/yyyy" navigator="true" mask="true" converterMessage="Digite uma data válida!">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </p:calendar>
             </p:panelGrid>
